@@ -1,1 +1,1 @@
-![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/nutellayen/sem/main.yml?branch=master>)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/nutellayen/cwWorld/main.yml?branch=master>)
