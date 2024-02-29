@@ -1,2 +1,1 @@
-Please read.
-2nd read.
+![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/nutellayen/sem/main.yml?branch=master>)
