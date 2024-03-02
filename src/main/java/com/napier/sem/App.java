@@ -1,82 +1,101 @@
 package com.napier.sem;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
-public class App
-{
-    public static void main(String[] args)
-    {
-        // Create new Application
-        App a = new App();
-
-        // Connect to database
-        a.connect();
-
-
-
-
-
-
-        // Disconnect from database
-        a.disconnect();
-    }
-
+public class App {
+    /**
+     * Connection to MySQL database.
+     */
     private Connection con = null;
 
-    public void connect()
-    {
-        try
-        {
+    /**
+     * Connect to the MySQL database.
+     */
+    public void connect() {
+        try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             System.out.println("Could not load SQL driver");
             System.exit(-1);
         }
 
         int retries = 10;
-        for (int i = 0; i < retries; ++i)
-        {
+        for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
-            try
-            {
+            try {
                 // Wait a bit for db to start
-                Thread.sleep(10000);
+                Thread.sleep(30000);
                 // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
-            }
-            catch (SQLException sqle)
-            {
+            } catch (SQLException | InterruptedException ex) {
                 System.out.println("Failed to connect to database attempt " + i);
-                System.out.println(sqle.getMessage());
-            }
-            catch (InterruptedException ie)
-            {
-                System.out.println("Thread interrupted? Should not happen.");
+                System.out.println(ex.getMessage());
             }
         }
     }
 
-    public void disconnect()
-    {
-        if (con != null)
-        {
-            try
-            {
+    /**
+     * Generate and display country report for top 60 countries.
+     */
+    public void generateCountryReport() {
+        try {
+            // Create SQL statement
+            Statement stmt = con.createStatement();
+
+            // SQL query to retrieve country data for top 60 countries
+            String query = "SELECT Code, Name, Continent, Region, Population, Capital FROM country ORDER BY Population DESC LIMIT 60";
+
+
+            // Execute SQL query
+            ResultSet rs = stmt.executeQuery(query);
+
+            // Display country report
+            System.out.println("Country Report:");
+            System.out.println("==================================================");
+            while (rs.next()) {
+                String code = rs.getString("Code");
+                String name = rs.getString("Name");
+                String continent = rs.getString("Continent");
+                String region = rs.getString("Region");
+                int population = rs.getInt("Population");
+                String capital = rs.getString("Capital");
+                System.out.printf("%-10s %-40s %-20s %-20s %-15d %-20s\n", code, name, continent, region, population, capital);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Disconnect from the MySQL database.
+     */
+    public void disconnect() {
+        if (con != null) {
+            try {
                 // Close connection
                 con.close();
-            }
-            catch (Exception e)
-            {
+                System.out.println("Disconnected from database");
+            } catch (SQLException e) {
                 System.out.println("Error closing connection to database");
+                System.out.println(e.getMessage());
             }
         }
     }
 
+    public static void main(String[] args) {
+        // Create new Application
+        App app = new App();
+
+        // Connect to database
+        app.connect();
+
+        // Generate and display country report for top 60 countries
+        app.generateCountryReport();
+
+        // Disconnect from database
+        app.disconnect();
+    }
 }
