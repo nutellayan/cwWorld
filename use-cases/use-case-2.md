@@ -43,7 +43,7 @@ The employee requests a report on country populations by continent.
 
 ## EXTENSIONS
 
-3. **Continent not found**:
+**Continent not found**:
     1. System informs the employee that the specified continent does not exist or is not available in the database.
 
 ## SUB-VARIATIONS
