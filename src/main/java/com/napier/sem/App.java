@@ -1,9 +1,34 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.sql.SQLException;
 
-public class App {
+public class App
+{
+    public static void main(String[] args) {
+        // Create a new instance of App
+        App app = new App();
+
+        // Connect to the database
+        app.connect();
+
+        // Check if the connection is successful
+        if (app.con != null) {
+            // If connected, proceed to fetch countries and print them
+            ArrayList<World> countries = app.getAllCountries();
+            app.printCountries(countries);
+            System.out.println("Number of countries retrieved: " + countries.size());
+        } else {
+            // If connection fails, print an error message
+            System.out.println("Failed to connect to the database.");
+        }
+
+        // Disconnect from the database
+        app.disconnect();
+    }
 
     private Connection con = null;
 
@@ -19,17 +44,21 @@ public class App {
         for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
             try {
-                Thread.sleep(30000);
+                Thread.sleep(10000);
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
-            } catch (SQLException | InterruptedException ex) {
+            } catch (SQLException sqle)
+            {
                 System.out.println("Failed to connect to database attempt " + i);
-                System.out.println(ex.getMessage());
+                System.out.println(sqle.getMessage());
+            }
+            catch (InterruptedException ie)
+            {
+                System.out.println("Thread interrupted? Should not happen.");
             }
         }
     }
-
     public ArrayList<World> getAllCountries() {
         ArrayList<World> countries = new ArrayList<>();
         try {
@@ -56,10 +85,13 @@ public class App {
                 World country = new World(code, name, continent, region, population, capital);
                 countries.add(country);
             }
-        } catch (SQLException e) {
-            System.out.println("Error executing SQL query: " + e.getMessage());
+            return countries;
         }
-        return countries;
+         catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+            return null;
+        }
+
     }
     public void printCountries(ArrayList<World> countries) {
         // Print header
@@ -87,18 +119,5 @@ public class App {
         }
     }
 
-    public static void main(String[] args) {
-        App app = new App();
-        app.connect();
 
-        ArrayList<World> countries = app.getAllCountries();
-
-        // Print Countries
-        app.printCountries(countries);
-
-        // Test the size of the returned data
-        System.out.println("Number of countries retrieved: " + countries.size());
-
-        app.disconnect();
-    }
 }
