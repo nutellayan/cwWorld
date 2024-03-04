@@ -7,8 +7,27 @@ public class App {
 
     private Connection con = null;
 
+    public static void main(String[] args) {
+        // Create new Application
+        App a = new App();
+
+        // Connect to database
+        a.connect();
+
+        // Retrieve and print countries
+        ArrayList<World> countries = a.getAllCountries();
+        a.printCountries(countries);
+
+        // Display the number of countries retrieved
+        System.out.println("Number of countries retrieved: " + countries.size());
+
+        // Disconnect from database
+        a.disconnect();
+    }
+
     public void connect() {
         try {
+            // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             System.out.println("Could not load SQL driver");
@@ -19,19 +38,23 @@ public class App {
         for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
             try {
-                Thread.sleep(30000);
+                // Wait a bit for db to start
+                Thread.sleep(10000);
+                // Connect to database
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
-            } catch (SQLException | InterruptedException ex) {
+            } catch (SQLException sqle) {
                 System.out.println("Failed to connect to database attempt " + i);
-                System.out.println(ex.getMessage());
+                System.out.println(sqle.getMessage());
+            } catch (InterruptedException ie) {
+                System.out.println("Thread interrupted? Should not happen.");
             }
         }
     }
 
     public ArrayList<World> getAllCountries() {
-        ArrayList<World> countries = new ArrayList<>();
+        ArrayList<World> countries = null;
         try {
             // Create SQL statement
             Statement stmt = con.createStatement();
@@ -46,6 +69,7 @@ public class App {
 
             // Execute SQL query
             ResultSet rs = stmt.executeQuery(query);
+            countries = new ArrayList<>();
             while (rs.next()) {
                 String code = rs.getString("Code");
                 String name = rs.getString("Name");
@@ -61,6 +85,7 @@ public class App {
         }
         return countries;
     }
+
     public void printCountries(ArrayList<World> countries) {
         // Print header
         System.out.printf("%-10s %-50s %-20s %-40s %-15s %-20s%n",
@@ -74,31 +99,14 @@ public class App {
         }
     }
 
-
     public void disconnect() {
         if (con != null) {
             try {
+                // Close connection
                 con.close();
-                System.out.println("Disconnected from database");
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 System.out.println("Error closing connection to database");
-                System.out.println(e.getMessage());
             }
         }
-    }
-
-    public static void main(String[] args) {
-        App app = new App();
-        app.connect();
-
-        ArrayList<World> countries = app.getAllCountries();
-
-        // Print Countries
-        app.printCountries(countries);
-
-        // Test the size of the returned data
-        System.out.println("Number of countries retrieved: " + countries.size());
-
-        app.disconnect();
     }
 }
