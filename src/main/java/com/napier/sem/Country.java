@@ -1,40 +1,14 @@
 package com.napier.sem;
 
-/**
- * Represents a country
- */
 public class Country {
-    /**
-     * Country code
-     */
-    public String code;
 
-    /**
-     * Country name
-     */
-    public String name;
+    private String code;
+    private String name;
+    private String continent;
+    private String region;
+    private int population;
+    private String capital;
 
-    /**
-     * Continent where the country is located
-     */
-    public String continent;
-
-    /**
-     * Region where the country is located
-     */
-    public String region;
-
-    /**
-     * Population of the country
-     */
-    public long population;
-
-    /**
-     * Capital city of the country
-     */
-    public String capital;
-
-    // Constructor
     public Country(String code, String name, String continent, String region, int population, String capital) {
         this.code = code;
         this.name = name;
@@ -44,6 +18,27 @@ public class Country {
         this.capital = capital;
     }
 
+    public String getCode() {
+        return code;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getContinent() {
+        return continent;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public String getCapital() {
+        return capital;
+    }
 }
-
