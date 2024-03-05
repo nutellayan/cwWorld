@@ -15,7 +15,7 @@ public class App {
         a.connect();
 
         // Retrieve and print countries
-        ArrayList<World> countries = a.getAllCountries();
+        ArrayList<Country> countries = a.getAllCountries();
         a.printCountries(countries);
 
         // Display the number of countries retrieved
@@ -53,8 +53,8 @@ public class App {
         }
     }
 
-    public ArrayList<World> getAllCountries() {
-        ArrayList<World> countries = null;
+    public ArrayList<Country> getAllCountries() {
+        ArrayList<Country> countries = null;
         try {
             // Create SQL statement
             Statement stmt = con.createStatement();
@@ -77,7 +77,7 @@ public class App {
                 String region = rs.getString("Region");
                 int population = rs.getInt("Population");
                 String capital = rs.getString("Capital");
-                World country = new World(code, name, continent, region, population, capital);
+                Country country = new Country(code, name, continent, region, population, capital);
                 countries.add(country);
             }
         } catch (SQLException e) {
@@ -86,12 +86,12 @@ public class App {
         return countries;
     }
 
-    public void printCountries(ArrayList<World> countries) {
+    public void printCountries(ArrayList<Country> countries) {
         // Print header
         System.out.printf("%-10s %-50s %-20s %-40s %-15s %-20s%n",
                 "Code", "Name", "Continent", "Region", "Population", "Capital");
         // Loop over all countries in the list
-        for (World country : countries) {
+        for (Country country : countries) {
             String countryInfo = String.format("%-10s %-50s %-20s %-40s %-15d %-20s",
                     country.code, country.name, country.continent,
                     country.region, country.population, country.capital);

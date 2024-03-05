@@ -3,7 +3,7 @@ package com.napier.sem;
 /**
  * Represents a country
  */
-public class World {
+public class Country {
     /**
      * Country code
      */
@@ -27,7 +27,7 @@ public class World {
     /**
      * Population of the country
      */
-    public int population;
+    public long population;
 
     /**
      * Capital city of the country
@@ -35,7 +35,7 @@ public class World {
     public String capital;
 
     // Constructor
-    public World(String code, String name, String continent, String region, int population, String capital) {
+    public Country(String code, String name, String continent, String region, int population, String capital) {
         this.code = code;
         this.name = name;
         this.continent = continent;
