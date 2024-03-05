@@ -37,7 +37,7 @@ The employee requests a report on country populations by region.
 
 ## MAIN SUCCESS SCENARIO
 
-1. Employee requests a report listing top 10 countries by population within a specific region.
+1. Employee requests a report listing top 4 countries by population within a specific region.
 2. System prompts the employee to specify the region.
 3. Employee provides the name of the region.
 
