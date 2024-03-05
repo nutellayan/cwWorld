@@ -1,10 +1,10 @@
-# USE CASE: 3 Generate Population Report for Top 10 Countries by Region organized by popuation
+# USE CASE: 3 Generate Population Report for Top 4 Countries by Region organized by popuation
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-*As an employee, I require a report detailing all countries within a particular region, ordered by population size from largest to smallest. The report should include the top 10 countries from each region, so that I can analyze population distributions within regions.*
+*As an employee, I require a report detailing all countries within a particular region, ordered by population size from largest to smallest. The report should include the top 4 countries from each region, so that I can analyze population distributions within regions.*
 
 ### Scope
 
@@ -21,7 +21,7 @@ Primary task.
 
 ### Success End Condition
 
-A report is generated showing the top 10 countries by population within the specified region, organized from largest to smallest population.
+A report is generated showing the top 4 countries by population within the specified region, organized from largest to smallest population.
 
 ### Failed End Condition
 
