@@ -1,7 +1,7 @@
 package com.napier.sem;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class App {
 
@@ -19,7 +19,7 @@ public class App {
         for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
             try {
-                Thread.sleep(30000);
+                Thread.sleep(10000);
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
@@ -29,51 +29,6 @@ public class App {
             }
         }
     }
-
-    public ArrayList<World> getAllCountries() {
-        ArrayList<World> countries = new ArrayList<>();
-        try {
-            // Create SQL statement
-            Statement stmt = con.createStatement();
-
-            // SQL query to retrieve country data with the name of their capital cities
-            String query = "SELECT country.Code, country.Name, country.Continent, country.Region, " +
-                    "country.Population, city.Name AS Capital " +
-                    "FROM country " +
-                    "JOIN city ON country.Capital = city.ID " +
-                    "ORDER BY country.Population DESC " +
-                    "LIMIT 60";
-
-            // Execute SQL query
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                String code = rs.getString("Code");
-                String name = rs.getString("Name");
-                String continent = rs.getString("Continent");
-                String region = rs.getString("Region");
-                int population = rs.getInt("Population");
-                String capital = rs.getString("Capital");
-                World country = new World(code, name, continent, region, population, capital);
-                countries.add(country);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error executing SQL query: " + e.getMessage());
-        }
-        return countries;
-    }
-    public void printCountries(ArrayList<World> countries) {
-        // Print header
-        System.out.printf("%-10s %-50s %-20s %-40s %-15s %-20s%n",
-                "Code", "Name", "Continent", "Region", "Population", "Capital");
-        // Loop over all countries in the list
-        for (World country : countries) {
-            String countryInfo = String.format("%-10s %-50s %-20s %-40s %-15d %-20s",
-                    country.code, country.name, country.continent,
-                    country.region, country.population, country.capital);
-            System.out.println(countryInfo);
-        }
-    }
-
 
     public void disconnect() {
         if (con != null) {
@@ -91,14 +46,72 @@ public class App {
         App app = new App();
         app.connect();
 
-        ArrayList<World> countries = app.getAllCountries();
+        // Create PopulationReport instance with the established Connection object
+        PopulationReport populationReport = new PopulationReport(app.con);
 
-        // Print Countries
-        app.printCountries(countries);
+        // Get user input for entity type and entity name
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the entity type (city, district, country, region, continent, or world):");
+        String entityType = scanner.nextLine();
+        System.out.println("Enter the entity name:");
+        String entityName = scanner.nextLine();
 
-        // Test the size of the returned data
-        System.out.println("Number of countries retrieved: " + countries.size());
+        // Generate population report based on user input
+        long population = populationReport.getPopulation(entityName, entityType);
+        System.out.println("Population of " + entityName + ": " + population);
 
         app.disconnect();
     }
 }
+
+    class PopulationReport {
+    private final Connection con;
+
+    public PopulationReport(Connection con) {
+        this.con = con;
+    }
+
+    public long getPopulation(String entityName, String entityType) {
+        long population = 0;
+
+        // Query to get population based on entity type
+        String query;
+        switch (entityType) {
+            case "city":
+                query = "SELECT population FROM city WHERE name = ?";
+                break;
+            case "district":
+                query = "SELECT SUM(population) FROM city WHERE district = ?";
+                break;
+            case "country":
+                query = "SELECT population FROM country WHERE name = ?";
+                break;
+            case "region":
+                query = "SELECT SUM(population) FROM city WHERE countrycode IN (SELECT code FROM country WHERE region = ?)";
+                break;
+            case "continent":
+                query = "SELECT SUM(population) FROM city WHERE countrycode IN (SELECT code FROM country WHERE continent = ?)";
+                break;
+            case "world":
+                query = "SELECT SUM(population) FROM city";
+                break;
+            default:
+                System.out.println("Invalid entity type");
+                return population;
+        }
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            if (!entityType.equals("world")) {
+                stmt.setString(1, entityName);
+            }
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                population = rs.getLong(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }
+        return population;
+    }
+}
+
