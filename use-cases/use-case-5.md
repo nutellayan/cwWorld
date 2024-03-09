@@ -1,10 +1,10 @@
-# USE CASE: 5 Generate Population Report for Top 20 Cities in a Continent organized by population
+# USE CASE: 5 Generate Population Report for Top 10 Cities in a Continent organized by population
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-*As an employee, I need a report detailing the cities within a specific continent, organized by population size from largest to smallest**. The report should include the top 20 populated cities in the continent, so that I can analyze population distributions within continents.*
+*As an employee, I need a report detailing the cities within a specific continent, organized by population size from largest to smallest**. The report should include the top 10 populated cities in the continent, so that I can analyze population distributions within continents.*
 
 ### Scope
 
@@ -22,7 +22,7 @@ Primary task.
 
 ### Success End Condition
 
-A report is generated showing the top 20 cities by population within the specified continent, organized from largest to smallest population.
+A report is generated showing the top 10 cities by population within the specified continent, organized from largest to smallest population.
 
 ### Failed End Condition
 
