@@ -62,18 +62,24 @@ public class App {
         return countries;
     }
     public void printCountries(ArrayList<Country> countries) {
+        // Check if countries is not null
+        if (countries == null) {
+            System.out.println("No countries");
+            return;
+        }
         // Print header
         System.out.printf("%-10s %-50s %-20s %-40s %-15s %-20s%n",
                 "Code", "Name", "Continent", "Region", "Population", "Capital");
         // Loop over all countries in the list
         for (Country country : countries) {
+            if (country == null)
+                continue;
             String countryInfo = String.format("%-10s %-50s %-20s %-40s %-15d %-20s",
                     country.getCode(), country.getName(), country.getContinent(),
                     country.getRegion(), country.getPopulation(), country.getCapital());
             System.out.println(countryInfo);
         }
     }
-
 
     public void disconnect() {
         if (con != null) {
