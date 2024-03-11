@@ -61,8 +61,7 @@ public class App {
             }
         } catch (SQLException e) {
             System.out.println("Error executing SQL query: " + e.getMessage());
-            e.printStackTrace();
-        }
+              }
         return countries;
     }
     public void printCountries(ArrayList<Country> countries) {
