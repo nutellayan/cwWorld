@@ -2,6 +2,9 @@ package com.napier.sem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class App {
 
@@ -20,7 +23,7 @@ public class App {
             System.out.println("Connecting to database...");
             try {
                 Thread.sleep(30000);
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             } catch (SQLException | InterruptedException ex) {
@@ -58,6 +61,7 @@ public class App {
             }
         } catch (SQLException e) {
             System.out.println("Error executing SQL query: " + e.getMessage());
+            e.printStackTrace();
         }
         return countries;
     }
