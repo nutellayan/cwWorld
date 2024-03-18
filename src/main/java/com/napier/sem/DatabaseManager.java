@@ -39,12 +39,11 @@ public class DatabaseManager {
         ArrayList<City> cities = new ArrayList<>();
         try {
             while (rs.next()) {
-                String name = rs.getString("Name");
+                String name = rs.getString("CityName");
                 String country = rs.getString("Country");
                 String district = rs.getString("District");
-                String continent = rs.getString("Continent"); // Add continent
-                int population = rs.getInt("Population");
-                City city = new City(name, country, district, continent, population); // Adjust constructor call
+                                int population = rs.getInt("Population");
+                City city = new City(name, country, district, population); // Adjust constructor call
                 cities.add(city);
             }
         } catch (SQLException e) {
@@ -57,10 +56,11 @@ public class DatabaseManager {
     public ArrayList<City> getAllCities() {
         ArrayList<City> cities = new ArrayList<>();
         try {
-            String query = "SELECT city.Name, country.Name AS Country, city.District, city.Population " +
+            String query = "SELECT city.Name AS CityName, country.Name AS Country, city.District, city.Population " +
                     "FROM city " +
                     "JOIN country ON city.CountryCode = country.Code " +
-                    "ORDER BY country.Continent, city.Population DESC";
+                    "ORDER BY city.Population DESC " +
+                    "LIMIT 50";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             cities = getCitiesFromResultSet(rs);
@@ -75,11 +75,20 @@ public class DatabaseManager {
         ArrayList<City> cities = new ArrayList<>();
         try {
             // Construct the SQL query with the continent value embedded
-            String query = "SELECT city.Name, country.Name AS Country, city.District, city.Population, country.Continent " +
-                    "FROM city " +
-                    "JOIN country ON city.CountryCode = country.Code " +
-                    "WHERE country.Continent IN (SELECT DISTINCT Continent FROM country)" +
-                    "ORDER BY country.Continent, city.Population DESC";
+            String query = "SELECT ranked_cities.CityName, ranked_cities.Country, ranked_cities.District, ranked_cities.Population, ranked_cities.Continent " +
+                    "FROM (" +
+                    "    SELECT " +
+                    "        city.Name AS CityName, " +
+                    "        country.Name AS Country, " +
+                    "        city.District, " +
+                    "        city.Population, " +
+                    "        country.Continent, " +
+                    "        ROW_NUMBER() OVER (PARTITION BY country.Continent ORDER BY city.Population DESC) AS row_num " +
+                    "    FROM city " +
+                    "    JOIN country ON city.CountryCode = country.Code " +
+                    ") AS ranked_cities " +
+                    "WHERE row_num <= 6 " +
+                    "ORDER BY ranked_cities.Continent, ranked_cities.Population DESC";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             cities = getCitiesFromResultSet(rs);
@@ -94,11 +103,22 @@ public class DatabaseManager {
     public ArrayList<City> getCitiesByRegion(String region) {
         ArrayList<City> cities = new ArrayList<>();
         try {
-            String query = "SELECT city.Name, country.Name AS Country, city.District, city.Population, country.Region " +
-                    "FROM city " +
-                    "JOIN country ON city.CountryCode = country.Code " +
-                    "WHERE country.Region IN (SELECT DISTINCT Region FROM country)" +
-                    "ORDER BY country.Region ASC, city.Population DESC";
+            // Construct the SQL query with the region value embedded
+            String query = "SELECT ranked_cities.CityName, ranked_cities.Country, ranked_cities.District, " +
+                    "ranked_cities.Population, ranked_cities.Region " +
+                    "FROM (" +
+                    "    SELECT " +
+                    "        city.Name AS CityName, " +
+                    "        country.Name AS Country, " +
+                    "        city.District, " +
+                    "        city.Population, " +
+                    "        country.Region, " +
+                    "        ROW_NUMBER() OVER (PARTITION BY country.Region ORDER BY city.Population DESC) AS row_num " +
+                    "    FROM city " +
+                    "    JOIN country ON city.CountryCode = country.Code " +
+                    ") AS ranked_cities " +
+                    "WHERE row_num <= 6 " +
+                    "ORDER BY ranked_cities.Region, ranked_cities.Population DESC";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             cities = getCitiesFromResultSet(rs);
@@ -110,15 +130,21 @@ public class DatabaseManager {
         return cities;
     }
 
-
-
-    public ArrayList<City> getCitiesByCountry(String countryName) {
+    public ArrayList<City> getCitiesByCountry(String country) {
         ArrayList<City> cities = new ArrayList<>();
         try {
-            String query = "SELECT city.Name, country.Name AS Country, city.District, city.Population " +
-                    "FROM city " +
-                    "JOIN country ON city.CountryCode = country.Code " +
-                    "ORDER BY country.Name ASC, city.Population DESC";
+            // Construct the SQL query with the region value embedded
+            String query = "SELECT ranked_cities.CityName, ranked_cities.Country, ranked_cities.District, " +
+                    "       ranked_cities.Population " +
+                    "FROM (" +
+                    "    SELECT city.Name AS CityName, country.Name AS Country, city.District, city.Population, country.Region, " +
+                    "           ROW_NUMBER() OVER (PARTITION BY city.CountryCode ORDER BY city.Population DESC) AS row_num " +
+                    "    FROM city " +
+                    "    JOIN country ON city.CountryCode = country.Code " +
+                    ") AS ranked_cities " +
+                    "WHERE row_num <= 2 " +
+                    "ORDER BY ranked_cities.Country";
+
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             cities = getCitiesFromResultSet(rs);
@@ -129,16 +155,20 @@ public class DatabaseManager {
         }
         return cities;
     }
-
-
     public ArrayList<City> getCitiesByDistrict(String district) {
         ArrayList<City> cities = new ArrayList<>();
         try {
-            String query = "SELECT city.Name AS City_Name, country.Name AS Country, city.District, city.Population " +
-                    "FROM city " +
-                    "JOIN country ON city.CountryCode = country.Code " +
-                    "WHERE country.Continent IN (SELECT DISTINCT Continent FROM country)" +
-                    "ORDER BY City.District ASC, City.Population DESC";
+            // Construct the SQL query with the region value embedded
+            String query = "SELECT ranked_cities.CityName, ranked_cities.Country, ranked_cities.District, " +
+                    "       ranked_cities.Population " +
+                    "FROM (" +
+                    "    SELECT city.Name AS CityName, country.Name AS Country, city.District, city.Population, " +
+                    "           ROW_NUMBER() OVER (PARTITION BY city.District ORDER BY city.Population DESC) AS row_num " +
+                    "    FROM city " +
+                    "    JOIN country ON city.CountryCode = country.Code " +
+                    ") AS ranked_cities " +
+                    "WHERE row_num <= 2 " +
+                    "ORDER BY ranked_cities.District";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             cities = getCitiesFromResultSet(rs);

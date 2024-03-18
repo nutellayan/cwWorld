@@ -31,6 +31,9 @@ public class App {
         ArrayList<City> citiesByDistrict = dbManager.getCitiesByDistrict("your_district");
         printCities(citiesByDistrict, "District");
 
+
+        // Retrieve and print cities by country
+
         // Disconnect from the database
         dbManager.disconnect();
     }

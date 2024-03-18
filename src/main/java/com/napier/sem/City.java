@@ -4,14 +4,12 @@ public class City {
     private String name;
     private String countryName;
     private String district;
-    private String continent; // Add continent field
     private int population;
 
-    public City(String name, String countryName, String district, String continent, int population) {
+    public City(String name, String countryName, String district, int population) {
         this.name = name;
         this.countryName = countryName;
         this.district = district;
-        this.continent = continent; // Initialize continent field
         this.population = population;
     }
 
@@ -40,14 +38,6 @@ public class City {
         this.district = district;
     }
 
-    public String getContinent() {
-        return continent;
-    }
-
-    public void setContinent(String continent) {
-        this.continent = continent;
-    }
-
     public int getPopulation() {
         return population;
     }
@@ -62,7 +52,6 @@ public class City {
                 "name='" + name + '\'' +
                 ", countryName='" + countryName + '\'' +
                 ", district='" + district + '\'' +
-                ", continent='" + continent + '\'' +
                 ", population=" + population +
                 '}';
     }
