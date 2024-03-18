@@ -1,6 +1,6 @@
 # USE CASE: 20 Generate report: Top 60 Populated Capital Cities Worldwide
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

@@ -1,6 +1,6 @@
 # USE CASE: 17 Report listing all capital cities in the world organized by population size
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

@@ -1,4 +1,4 @@
-# USE CASE: 2 Generate Country Population in a continent organized by Population
+# USE CASE: 2 Generate Country Population in a continent organized by Population.
 
 ## CHARACTERISTIC INFORMATION
 

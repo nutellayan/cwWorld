@@ -1,6 +1,6 @@
 # USE CASE: 13 Generate report: Top 10 populated cities in a continent
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

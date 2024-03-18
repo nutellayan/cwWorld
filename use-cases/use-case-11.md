@@ -1,6 +1,6 @@
 # USE CASE: 11 Generate City Population Report in a district organised by largest to smallest
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

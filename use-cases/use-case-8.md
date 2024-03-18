@@ -1,4 +1,4 @@
-# USE CASE: 8 Generate City Population Report in a continent organised by largest to smallest
+# USE CASE: 8 Generate City Population Report in a continent organised by largest to smallest.
 
 ## CHARACTERISTIC INFORMATION
 

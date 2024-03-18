@@ -1,6 +1,6 @@
 # USE CASE: 23 Population Report - People Living In/Not Living in Each Continent
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

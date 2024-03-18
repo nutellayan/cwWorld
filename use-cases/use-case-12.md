@@ -1,6 +1,6 @@
 # USE CASE: 12 Generate report: Top 100 populated cities in the world
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

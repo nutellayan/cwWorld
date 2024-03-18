@@ -1,6 +1,6 @@
 # USE CASE: 30 Access to retrieve the population of a district
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

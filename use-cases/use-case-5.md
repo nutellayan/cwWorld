@@ -1,4 +1,4 @@
-# USE CASE: 5 Generate Population Report for Top 10 countries in a continent organized by population
+# USE CASE: 5 Generate Population Report for Top 10 countries in a continent organized by population.
 
 ## CHARACTERISTIC INFORMATION
 

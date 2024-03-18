@@ -1,6 +1,6 @@
 # USE CASE: 19 Report listing all capital cities in a region organized by population size
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

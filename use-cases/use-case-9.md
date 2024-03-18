@@ -1,6 +1,6 @@
 # USE CASE: 9 Generate City Population Report in a region organised by largest to smallest
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

@@ -1,6 +1,6 @@
 # USE CASE: 24 Population Report - People Living In/Not Living in Each Region
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

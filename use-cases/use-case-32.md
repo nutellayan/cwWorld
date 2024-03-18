@@ -1,6 +1,6 @@
 # USE CASE: 32 Generate a Population Report with World's Most Spoken Languages
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

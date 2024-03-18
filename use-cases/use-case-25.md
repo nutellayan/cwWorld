@@ -1,6 +1,6 @@
 # USE CASE: 25 Population Report - People Living In/Not Living in Each Country
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

@@ -1,6 +1,6 @@
 # USE CASE: 31 Access to retrieve the population of a city
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

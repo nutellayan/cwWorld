@@ -1,6 +1,6 @@
 # USE CASE: 18 Report listing all capital cities in a continent organized by population size
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

@@ -1,6 +1,6 @@
 # USE CASE: 22 Generate report: Top 5 Populated Capital Cities in a Region
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

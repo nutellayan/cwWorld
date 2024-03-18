@@ -1,4 +1,4 @@
-# USE CASE: 1 Generate Country Population Report Organized by Population
+# USE CASE: 1 Generate Country Population in the world organized by Population.
 
 ## CHARACTERISTIC INFORMATION
 

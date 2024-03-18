@@ -1,4 +1,4 @@
-# USE CASE: 4 Generate Population Report for Top 60 countries in the World organized by population
+# USE CASE: 4 Generate Population Report for Top 60 countries in the World organized by population.
 
 ## CHARACTERISTIC INFORMATION
 

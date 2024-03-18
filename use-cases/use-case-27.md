@@ -1,6 +1,6 @@
 # USE CASE: 27 Access to retrieve the population of a continent
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

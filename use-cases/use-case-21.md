@@ -1,10 +1,10 @@
-# USE CASE: 21 Generate Language Population Report
+# USE CASE: 21 Generate report: Top 5 Populated Capital Cities in a Continent
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I need to generate a report that provides the number of people who speak Chinese, English, Hindi, Spanish, and Arabic, from greatest number to smallest. The report should include the percentage of the world population for each language. This will facilitate analysis of language distribution and help identify the most widely spoken languages globally.
+*Generate report: Top 5 Populated Capital Cities in a Continent*
 
 ### Scope
 

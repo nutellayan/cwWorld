@@ -1,4 +1,4 @@
-# USE CASE: 7 Generate City Population Report in the world organised by largest to smallest
+# USE CASE: 7 Generate City Population Report in the world organised by largest to smallest.
 
 ## CHARACTERISTIC INFORMATION
 

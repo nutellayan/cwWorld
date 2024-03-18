@@ -1,6 +1,6 @@
 # USE CASE: 28 Access to retrieve the population of a region
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

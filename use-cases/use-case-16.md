@@ -1,6 +1,6 @@
 # USE CASE: 16 Generate report: Top 2 populated cities in a district
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

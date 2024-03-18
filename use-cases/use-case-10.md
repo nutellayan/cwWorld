@@ -1,6 +1,6 @@
 # USE CASE: Generate City Population Report in a country organised by largest to smallest
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

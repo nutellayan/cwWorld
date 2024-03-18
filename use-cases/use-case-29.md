@@ -1,6 +1,6 @@
 # USE CASE: 29 Access to retrieve the population of a country
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

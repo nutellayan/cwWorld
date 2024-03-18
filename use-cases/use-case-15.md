@@ -1,6 +1,6 @@
 # USE CASE: 15 Generate report: Top 2 populated cities in a country
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

@@ -1,4 +1,4 @@
-# USE CASE: 3 Generate Country Population in a region organized by Population
+# USE CASE: 3 Generate Country Population in a region organized by Population.
 
 ## CHARACTERISTIC INFORMATION
 

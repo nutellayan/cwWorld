@@ -1,6 +1,6 @@
 # USE CASE: 26 Access to retrieve the population of the world
 
-## CHARACTERISTIC INFORMATION
+## CHARACTERISTIC INFORMATION.
 
 ### Goal in Context
 

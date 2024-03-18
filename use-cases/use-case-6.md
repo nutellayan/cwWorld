@@ -1,4 +1,4 @@
-# USE CASE: 6 Generate Population Report for Top 4 countries in a region organized by population
+# USE CASE: 6 Generate Population Report for Top 4 countries in a region organized by population.
 
 ## CHARACTERISTIC INFORMATION
 
