@@ -46,7 +46,7 @@ public class App {
                 // Wait a bit for db to start
                 Thread.sleep(10000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             } catch (SQLException sqle) {
@@ -80,71 +80,16 @@ public class App {
     public ArrayList<Country> getAllCountries() {
         ArrayList<Country> countries = new ArrayList<>();
         try {
-            // Create SQL statement
-            Statement stmt = con.createStatement();
-
-            // SQL query to retrieve country data with the name of their capital cities
-            String query = "SELECT country.Code, country.Name, country.Continent, country.Region, " +
-                    "country.Population, city.Name AS Capital " +
+            // SQL query 1
+            String query = "SELECT Code, Name, Continent, Region, Population, Capital " +
                     "FROM country " +
-                    "JOIN city ON country.Capital = city.ID " +
-                    "ORDER BY country.Population DESC " +
-                    "LIMIT 60";
-
-            // Execute SQL query
+                    "ORDER BY Population DESC";
+            Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             countries = getCountriesFromResultSet(rs);
-        } catch (SQLException e) {
-            System.out.println("Error executing SQL query: " + e.getMessage());
-        }
-        return countries;
-    }
-
-    public ArrayList<Country> getCountriesByRegion() {
-        ArrayList<Country> countries = new ArrayList<>();
-        try {
-            String query = "WITH RankedCountries AS (\n" +
-                    "    SELECT \n" +
-                    "        country.Code,\n" +
-                    "        country.Name AS CountryName,\n" +
-                    "        country.Continent,\n" +
-                    "        country.Region,\n" +
-                    "        country.Population,\n" +
-                    "        city.Name AS Capital,\n" +
-                    "        ROW_NUMBER() OVER (PARTITION BY country.Region ORDER BY country.Population DESC) AS RegionRank\n" +
-                    "    FROM \n" +
-                    "        country\n" +
-                    "    JOIN \n" +
-                    "        city ON country.Capital = city.ID\n" +
-                    ")\n" +
-                    "SELECT \n" +
-                    "    Code,\n" +
-                    "    CountryName,\n" +
-                    "    Continent,\n" +
-                    "    Region,\n" +
-                    "    Population,\n" +
-                    "    Capital\n" +
-                    "FROM \n" +
-                    "    RankedCountries\n" +
-                    "WHERE \n" +
-                    "    RegionRank <= 4\n" +
-                    "ORDER BY \n" +
-                    "    Region,\n" +
-                    "    Population DESC";
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                String code = rs.getString("Code");
-                String name = rs.getString("CountryName");
-                String continent = rs.getString("Continent");
-                String region = rs.getString("Region");
-                int population = rs.getInt("Population");
-                String capital = rs.getString("Capital");
-                Country country = new Country(code, name, continent, region, population, capital);
-                countries.add(country);
-            }
-            rs.close(); // Close the ResultSet
-            stmt.close(); // Close the Statement
+            rs.close();
+            stmt.close();
+            // Execute SQL query
         } catch (SQLException e) {
             System.out.println("Error executing SQL query: " + e.getMessage());
         }
@@ -154,48 +99,35 @@ public class App {
     public ArrayList<Country> getCountriesByContinent() {
         ArrayList<Country> countries = new ArrayList<>();
         try {
-            String query = "WITH RankedCountries AS (\n" +
-                    "    SELECT \n" +
-                    "        c.Code, \n" +
-                    "        c.Name AS CountryName, \n" +
-                    "        c.Continent, \n" +
-                    "        c.Region, \n" +
-                    "        c.Population, \n" +
-                    "        ct.Name AS Capital,\n" +
-                    "        ROW_NUMBER() OVER (PARTITION BY c.Continent ORDER BY c.Population DESC) AS ContinentRank\n" +
-                    "    FROM \n" +
-                    "        country c\n" +
-                    "    JOIN \n" +
-                    "        city ct ON c.Capital = ct.ID\n" +
-                    ")\n" +
-                    "SELECT \n" +
-                    "    Code, \n" +
-                    "    CountryName, \n" +
-                    "    Continent, \n" +
-                    "    Region, \n" +
-                    "    Population, \n" +
-                    "    Capital\n" +
-                    "FROM \n" +
-                    "    RankedCountries\n" +
-                    "WHERE \n" +
-                    "    ContinentRank <= 10\n" +
-                    "ORDER BY \n" +
-                    "    Continent, \n" +
-                    "    Population DESC";
+            // SQL query 2
+            String query = "SELECT Code, Name, Continent, Region, Population, Capital " +
+                    "FROM country " +
+                    "WHERE Continent IN ('North America', 'Asia', 'Africa', 'Europe', 'Oceania', 'Antarctica') " +
+                    "ORDER BY Continent, Population DESC";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                String code = rs.getString("Code");
-                String name = rs.getString("CountryName");
-                String continent = rs.getString("Continent");
-                String region = rs.getString("Region");
-                int population = rs.getInt("Population");
-                String capital = rs.getString("Capital");
-                Country country = new Country(code, name, continent, region, population, capital);
-                countries.add(country);
-            }
-            rs.close(); // Close the ResultSet
-            stmt.close(); // Close the Statement
+            countries = getCountriesFromResultSet(rs);
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }
+        return countries;
+    }
+
+    public ArrayList<Country> getCountriesByRegion() {
+        ArrayList<Country> countries = new ArrayList<>();
+        try {
+            // SQL query 3
+            String query = "SELECT Code, Name, Continent, Region, Population, Capital " +
+                    "FROM country " +
+                    "WHERE Region IN ('Caribbean', 'Southern and Central Asia', 'Central Africa', 'Central America', 'Southern Europe', 'Middle East', 'Polynesia', 'Antarctica', 'Australia and New Zealand', 'Western Europe', 'Eastern Africa', 'Nordic Countries', 'South America', 'Western Africa', 'British Islands', 'Baltic Countries', 'Micronesia', 'Melanesia', 'Eastern Asia', 'Eastern Europe', 'Southeast Asia') " +
+                    "ORDER BY Region, Population DESC";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            countries = getCountriesFromResultSet(rs);
+            rs.close();
+            stmt.close();
         } catch (SQLException e) {
             System.out.println("Error executing SQL query: " + e.getMessage());
         }
@@ -223,7 +155,7 @@ public class App {
         System.out.printf("%-10s %-50s %-20s %-40s %-15s %-20s%n",
                 "Code", "Name", "Continent", "Region", "Population", "Capital");
         for (Country country : countries) {
-            String countryInfo = String.format("%-10s %-50s %-20s %-40s %-15d %-20s%n",
+            String countryInfo = String.format("%-10s %-50s %-20s %-40s %-15d %-20sn",
                     country.getCode(), country.getName(), country.getContinent(),
                     country.getRegion(), country.getPopulation(), country.getCapital());
             System.out.println(countryInfo);
