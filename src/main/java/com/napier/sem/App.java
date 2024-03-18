@@ -83,7 +83,8 @@ public class App {
             // SQL query 1
             String query = "SELECT Code, Name, Continent, Region, Population, Capital " +
                     "FROM country " +
-                    "ORDER BY Population DESC";
+                    "ORDER BY Population DESC " +
+                    "LIMIT 60";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             countries = getCountriesFromResultSet(rs);
@@ -99,10 +100,15 @@ public class App {
     public ArrayList<Country> getCountriesByContinent() {
         ArrayList<Country> countries = new ArrayList<>();
         try {
-            // SQL query 2
             String query = "SELECT Code, Name, Continent, Region, Population, Capital " +
                     "FROM country " +
-                    "WHERE Continent IN ('North America', 'Asia', 'Africa', 'Europe', 'Oceania', 'Antarctica') " +
+                    "WHERE (" +
+                    "   SELECT COUNT(*) " +
+                    "   FROM country AS c " +
+                    "   WHERE c.Continent = country.Continent " +
+                    "       AND c.Population >= country.Population" +
+                    ") <= 10 " +
+                    "AND Continent IN ('North America', 'Asia', 'Africa', 'Europe', 'Oceania', 'Antarctica') " +
                     "ORDER BY Continent, Population DESC";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -120,8 +126,22 @@ public class App {
         try {
             // SQL query 3
             String query = "SELECT Code, Name, Continent, Region, Population, Capital " +
-                    "FROM country " +
-                    "WHERE Region IN ('Caribbean', 'Southern and Central Asia', 'Central Africa', 'Central America', 'Southern Europe', 'Middle East', 'Polynesia', 'Antarctica', 'Australia and New Zealand', 'Western Europe', 'Eastern Africa', 'Nordic Countries', 'South America', 'Western Africa', 'British Islands', 'Baltic Countries', 'Micronesia', 'Melanesia', 'Eastern Asia', 'Eastern Europe', 'Southeast Asia') " +
+                    "FROM (" +
+                    "    SELECT " +
+                    "        Code, Name, Continent, Region, Population, Capital, " +
+                    "        ROW_NUMBER() OVER (PARTITION BY Region ORDER BY Population DESC) AS row_num " +
+                    "    FROM country " +
+                    "    WHERE Region IN (" +
+                    "        'Caribbean', 'Southern and Central Asia', 'Central Africa', " +
+                    "        'Central America', 'Southern Europe', 'Middle East', 'Polynesia', " +
+                    "        'Antarctica', 'Australia and New Zealand', 'Western Europe', " +
+                    "        'Eastern Africa', 'Nordic Countries', 'South America', " +
+                    "        'Western Africa', 'British Islands', 'Baltic Countries', " +
+                    "        'Micronesia', 'Melanesia', 'Eastern Asia', 'Eastern Europe', " +
+                    "        'Southeast Asia'" +
+                    "    )" +
+                    ") AS ranked_countries " +
+                    "WHERE row_num <= 4 " +
                     "ORDER BY Region, Population DESC";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -155,7 +175,7 @@ public class App {
         System.out.printf("%-10s %-50s %-20s %-40s %-15s %-20s%n",
                 "Code", "Name", "Continent", "Region", "Population", "Capital");
         for (Country country : countries) {
-            String countryInfo = String.format("%-10s %-50s %-20s %-40s %-15d %-20sn",
+            String countryInfo = String.format("%-10s %-50s %-20s %-40s %-15d %-20s%n",
                     country.getCode(), country.getName(), country.getContinent(),
                     country.getRegion(), country.getPopulation(), country.getCapital());
             System.out.println(countryInfo);
