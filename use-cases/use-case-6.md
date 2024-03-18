@@ -1,10 +1,10 @@
-# USE CASE: 6 Generate City Population Report for a Specified Region
+# USE CASE: 6 Generate Population Report for Top 4 countries in a region organized by population
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I require a report listing all cities within a specified region, organized by population size from largest to smallest. Additionally, the report should aim to provide information on the top 10 populated cities in the region if available. This will assist me in analyzing population distributions within regions.
+*Generate report: Top 4 populated countries in a region.*
 
 ### Scope
 

@@ -4,7 +4,7 @@
 
 ### Goal in Context
 
-*As an employee, I need to generate a report on all the countries in the world organised by largest population to smallest, with the top 60 countries presented as the final result.*
+*As an employer, I want to generate a report listing all countries in the world sorted by population.*
 
 ### Scope
 

@@ -1,10 +1,10 @@
-# USE CASE: 11 Generate Report of Capital Cities within a Specified Region
+# USE CASE: 11 Generate City Population Report in a district organised by largest to smallest
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I need a report listing all capital cities within a specific region, sorted by population size from largest to smallest. The report should include the top 5 populated capital cities in the region. This will help me analyze population distributions among capital cities within regions.
+*As an employee, I want to generate a report of all cities in a district organized by largest population to smallest.*
 
 ### Scope
 

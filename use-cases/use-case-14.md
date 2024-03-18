@@ -1,10 +1,10 @@
-# USE CASE: 14 Generate Population Distribution Report within Each Country
+# USE CASE: 14 Generate report: Top 10 populated cities in a region
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I need a report on the population distribution within each country. The report should include the total population, the population of people living in cities, and the population of people not living in cities. This will facilitate analysis of population distributions and urbanization trends across countries.
+*Generate report: Top 10 populated cities in a region*
 
 ### Scope
 

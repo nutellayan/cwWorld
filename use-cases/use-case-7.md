@@ -1,10 +1,10 @@
-# USE CASE: 7 Generate City Population Report for a Specified Country
+# USE CASE: 7 Generate City Population Report in the world organised by largest to smallest
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-*As an employee, I require a report listing all cities within a particular country, arranged by population size from largest to smallest. The report should display the top 2 populated cities in the country. This will enable me to analyze population distributions within countries.*
+*As an employee, I want to generate a report of all cities in the world organized by largest population to smallest.*
 
 ### Scope
 

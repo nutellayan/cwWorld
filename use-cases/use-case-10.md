@@ -1,10 +1,10 @@
-# USE CASE: 10 Generate Report of Capital Cities within a Specified Continent
+# USE CASE: Generate City Population Report in a country organised by largest to smallest
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I require a report listing all capital cities within a specified continent, organized by population size from largest to smallest. The report should include the top 5 populated capital cities in each continent. This will facilitate analysis of population distributions among capital cities within continents.
+*As an employee, I want to generate a report of all cities in a country organized by largest population to smallest.*
 
 ### Scope
 

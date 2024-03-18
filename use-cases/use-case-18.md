@@ -1,10 +1,10 @@
-# USE CASE: 18 Access Population Data for a Specific Country
+# USE CASE: 18 Report listing all capital cities in a continent organized by population size
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I require access to the population data for a specific country. This will enable me to obtain demographic insights and perform analyses related to the population distribution within the chosen country.
+*As an employee, I want to generate a report listing all capital cities in a continent organized by population size.*
 
 ### Scope
 

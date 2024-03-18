@@ -1,10 +1,10 @@
-# USE CASE: 4 Generate Population Report for Top 100 Cities in the World organized by population
+# USE CASE: 4 Generate Population Report for Top 60 countries in the World organized by population
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-*As an employee, I require a report that lists all cities in the world, organized by population size from largest to smallest. The report should include the top 100 populated cities in the world, so that I can analyze population distributions across cities.*
+*Generate report: Top 60 populated countries in the world.*
 
 ### Scope
 

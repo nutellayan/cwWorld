@@ -1,10 +1,10 @@
-# USE CASE: 3 Generate Population Report for Top 4 Countries by Region organized by popuation
+# USE CASE: 3 Generate Country Population in a region organized by Population
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-*As an employee, I require a report detailing all countries within a particular region, ordered by population size from largest to smallest. The report should include the top 4 countries from each region, so that I can analyze population distributions within regions.*
+*As an employer, I want to generate a report listing all countries in a region sorted by population.*
 
 ### Scope
 

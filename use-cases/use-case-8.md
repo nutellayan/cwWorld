@@ -1,10 +1,10 @@
-# USE CASE: 8 Generate City Population Report for a Specified District
+# USE CASE: 8 Generate City Population Report in a continent organised by largest to smallest
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I require a report listing the top 2 populated cities within a specific district, sorted by population size from largest to smallest. This report will enable me to analyze population distributions within districts.
+*As an employee, I want to generate a report of all cities in a continent organized by largest population to smallest.*
 
 ### Scope
 

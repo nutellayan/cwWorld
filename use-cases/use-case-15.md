@@ -1,10 +1,10 @@
-# USE CASE: 15 Access World Population Data
+# USE CASE: 15 Generate report: Top 2 populated cities in a country
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I require access to the population of the world. This will enable me to obtain comprehensive information about the global population for various analytical purposes.
+*Generate report: Top 2 populated cities in a country*
 
 ### Scope
 

@@ -1,10 +1,10 @@
-# USE CASE: 20 Access Population Data for a Specific City
+# USE CASE: 20 Generate report: Top 60 Populated Capital Cities Worldwide
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I require access to the population data for a specific city. This will enable me to gather demographic insights and perform analyses related to the population distribution within the chosen city.
+*Generate report: Top 60 Populated Capital Cities Worldwide*
 
 ### Scope
 

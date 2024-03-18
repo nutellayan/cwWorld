@@ -1,10 +1,10 @@
-# USE CASE: 12 Generate Population Distribution Report within Each Continent
+# USE CASE: 12 Generate report: Top 100 populated cities in the world
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I need a report on the population distribution within each continent. The report should include the total population, the population of people living in cities, and the population of people not living in cities. This will facilitate analysis of population distributions and urbanization trends across continents.
+*Generate report: Top 100 populated cities in the world*
 
 ### Scope
 

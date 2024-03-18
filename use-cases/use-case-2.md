@@ -1,10 +1,10 @@
-# USE CASE: 2 Generate Population Report for Top 10 Countries by Continent organised by their population
+# USE CASE: 2 Generate Country Population in a continent organized by Population
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-*As an employee, I require a report that organizes countries within a specific continent, arranging them from largest to smallest population**. The report should include the top 10 countries from each continent, so that I can analyze population distributions within continents.*
+*As an employer, I want to generate a report listing all countries in a continent sorted by population.*
 
 ### Scope
 

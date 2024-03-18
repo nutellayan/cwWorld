@@ -1,10 +1,10 @@
-# USE CASE: 19 Access Population Information for a Specific District
+# USE CASE: 19 Report listing all capital cities in a region organized by population size
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I need access to the population information for a particular district. This will enable me to gather demographic insights and perform analyses related to the population distribution within the chosen district.
+*As an employee, I want to generate a report listing all capital cities in a region organized by population size.*
 
 ### Scope
 

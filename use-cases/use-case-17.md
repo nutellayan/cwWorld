@@ -1,10 +1,10 @@
-# USE CASE: 17 Access Population Information for a Specific Region
+# USE CASE: 17 Report listing all capital cities in the world organized by population size
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I need to access the population information for a particular region. This will enable me to gather demographic insights and perform analyses related to the population distribution within specific regions.
+*As an employee, I want to generate a report listing all capital cities in the world organized by population size.*
 
 ### Scope
 

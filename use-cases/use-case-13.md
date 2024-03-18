@@ -1,10 +1,10 @@
-# USE CASE: 13 Generate Population Distribution Report within Each Region
+# USE CASE: 13 Generate report: Top 10 populated cities in a continent
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-As an employee, I need a report on the population distribution within each region. The report should include the total population, the population of people living in cities, and the population of people not living in cities. This will facilitate analysis of population distributions and urbanization trends across regions.
+*Generate report: Top 10 populated cities in a continent*
 
 ### Scope
 
