@@ -12,31 +12,34 @@ public class App {
         dbManager.connect();
 
         // Retrieve and print all capital cities
-        ArrayList<City> capitalCitiesByPopulation = dbManager.getCapitalCitiesByPopulation();
-        printCities(capitalCitiesByPopulation, "World Capitals by Population");
+        ArrayList<PopulationData> populationReportDataByContinent = dbManager.getPopulationReportDataByContinent();
+        printPopulationData(populationReportDataByContinent, "Population Report - People Living In/Not Living in Each Continent");
 
         // Retrieve and print capital cities by continent and population
-        ArrayList<City> capitalCitiesByContinentPopulation = dbManager.getCapitalCitiesByContinentPopulation();
-        printCities(capitalCitiesByContinentPopulation, "Capital Cities by Continent and Population");
+        ArrayList<PopulationData> populationReportDataByRegion = dbManager.getPopulationReportDataByRegion();
+        printPopulationData(populationReportDataByRegion, "Population Report - People Living In/Not Living in Each Region");
 
         // Retrieve and print capital cities by region and population
-        ArrayList<City> capitalCitiesByRegionPopulation = dbManager.getCapitalCitiesByRegionPopulation();
-        printCities(capitalCitiesByRegionPopulation, "Capital Cities by Region and Population");
+        ArrayList<PopulationData> populationReportDataByCountry = dbManager.getPopulationReportDataByCountry();
+        printPopulationData(populationReportDataByCountry, "Population Report - People Living In/Not Living in Each Country");
 
         // Disconnect from the database
         dbManager.disconnect();
     }
 
-    public static void printCities(ArrayList<City> cities, String header) {
+    public static void printPopulationData(ArrayList<PopulationData> populationData, String header) {
         System.out.println("===========================");
-        System.out.println("Capital Report by " + header);
+        System.out.println(header);
         System.out.println("===========================");
-        System.out.printf("%-40s %-40s %-15s%n",
-                "City Name", "Country", "Population");
-        for (City city : cities) {
-            String cityInfo = String.format("%-40s %-40s %-15d",
-                    city.getName(), city.getCountryName(), city.getPopulation());
-            System.out.println(cityInfo);
+        System.out.printf("%-40s %-25s %-25s %-25s %-25s %-20s%n",
+                "Name", "Total Population", "Population In Cities", "Percentage In Cities", "Population Not In Cities", "Percentage Not In Cities");
+        for (PopulationData data : populationData) {
+            String populationInfo = String.format("%-40s %-25d %-25d %-25f %-25d %-20.2f%n",
+                    data.getName(), data.getTotalPopulation(),
+                    data.getPopulationInCities(), data.getPercentageInCities(), data.getPopulationNotInCities(), data.getPercentageNotInCities());
+
+            System.out.print(populationInfo);
         }
     }
+
 }

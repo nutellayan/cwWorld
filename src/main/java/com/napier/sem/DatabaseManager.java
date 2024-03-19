@@ -35,103 +35,122 @@ public class DatabaseManager {
         }
     }
 
-    private ArrayList<City> getCitiesFromResultSet(ResultSet rs) {
-        ArrayList<City> cities = new ArrayList<>();
+    private ArrayList<PopulationData> getPopulationReportDataFromResultSet(ResultSet rs) {
+        ArrayList<PopulationData> populationDataList = new ArrayList<>();
         try {
             while (rs.next()) {
                 String name = rs.getString("Name");
-                String country = rs.getString("Country");
-                int population = rs.getInt("Population");
-                City city = new City(name, country, "", population); // Adjust constructor call
-                cities.add(city);
+                long totalPopulation = rs.getLong("TotalPopulation");
+                long populationInCities = rs.getLong("PopulationInCities");
+                double percentageInCities = rs.getDouble("PercentageInCities");
+                long populationNotInCities = rs.getLong("PopulationNotInCities");
+                double percentageNotInCities = rs.getDouble("PercentageNotInCities");
+
+                PopulationData populationData = new PopulationData(name, totalPopulation, populationInCities,
+                        percentageInCities, populationNotInCities, percentageNotInCities);
+                populationDataList.add(populationData);
             }
         } catch (SQLException e) {
             System.out.println("Error processing ResultSet: " + e.getMessage());
         }
-        return cities;
+        return populationDataList;
     }
 
-    public ArrayList<City> getCapitalCitiesByPopulation() {
-        ArrayList<City> capitals = new ArrayList<>();
+    public ArrayList<PopulationData> getPopulationReportDataByContinent() {
+        ArrayList<PopulationData> populationDataList = new ArrayList<>();
         try {
-            String query = "SELECT City.Name AS Name, City.CountryCode AS Country, City.Population AS Population " +
-                    "FROM City " +
-                    "JOIN Country ON City.ID = Country.Capital " +
-                    "ORDER BY Population DESC " + // Add space here
-                    "LIMIT 60";
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            capitals = getCitiesFromResultSet(rs);
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println("Error executing SQL query: " + e.getMessage());
-        }
-        return capitals;
-    }
-
-    public ArrayList<City> getCapitalCitiesByContinentPopulation() {
-        ArrayList<City> capitals = new ArrayList<>();
-        try {
-            String query = "SELECT ranked_cities.CityName AS Name, " +
-                    "       ranked_cities.Population, " +
-                    "       ranked_cities.Country, " +
-                    "       ranked_cities.Continent " +
-                    "FROM ( " +
-                    "    SELECT " +
-                    "        city.Name AS CityName, " +
-                    "        country.Name AS Country, " +
-                    "        city.District, " +
-                    "        city.Population, " +
-                    "        country.Continent, " +
-                    "        ROW_NUMBER() OVER (PARTITION BY country.Continent ORDER BY city.Population DESC) AS row_num " +
+            String query = "SELECT c.Continent as Name, " +
+                    "       SUM(c.Population) as TotalPopulation, " +
+                    "       SUM(ci.Population) as PopulationInCities, " +
+                    "       ROUND((SUM(ci.Population) / SUM(c.Population)) * 100, 2) as PercentageInCities, " +
+                    "       SUM(c.Population - ci.Population) as PopulationNotInCities, " +
+                    "       ROUND((SUM(c.Population - ci.Population) / SUM(c.Population)) * 100, 2) as PercentageNotInCities " +
+                    "FROM country c " +
+                    "LEFT JOIN ( " +
+                    "    SELECT CountryCode, SUM(Population) as Population " +
                     "    FROM city " +
-                    "    JOIN country ON city.ID = country.Capital " +
-                    ") AS ranked_cities " +
-                    "WHERE row_num <= 5 " +
-                    "ORDER BY ranked_cities.Continent, ranked_cities.Population DESC;";
+                    "    GROUP BY CountryCode " +
+                    ") ci ON c.Code = ci.CountryCode " +
+                    "GROUP BY c.Continent";
+
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            capitals = getCitiesFromResultSet(rs);
+            populationDataList = getPopulationReportDataFromResultSet(rs);
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             System.out.println("Error executing SQL query: " + e.getMessage());
         }
-        return capitals;
+        return populationDataList;
     }
-
-    public ArrayList<City> getCapitalCitiesByRegionPopulation() {
-        ArrayList<City> capitals = new ArrayList<>();
+    public ArrayList<PopulationData> getPopulationReportDataByRegion() {
+        ArrayList<PopulationData> populationDataList = new ArrayList<>();
         try {
-            String query = "SELECT ranked_cities.CityName AS Name, " +
-                    "       ranked_cities.Population, " +
-                    "       ranked_cities.Country, " +
-                    "       ranked_cities.Region " +
-                    "FROM (" +
-                    "    SELECT " +
-                    "        city.Name AS CityName, " +
-                    "        country.Name AS Country, " +
-                    "        city.District, " +
-                    "        city.Population, " +
-                    "        country.Region, " +
-                    "        ROW_NUMBER() OVER (PARTITION BY country.Region ORDER BY city.Population DESC) AS row_num " +
+            String query = "SELECT co.Region AS Name, " +
+                    "       SUM(c.Population) AS TotalPopulation, " +
+                    "       SUM(co.Population) AS PopulationInCountries, " +
+                    "       SUM(ci.Population) AS PopulationInCities, " +
+                    "       ROUND((SUM(ci.Population) / SUM(c.Population)) * 100, 2) AS PercentageInCities, " +
+                    "       SUM(c.Population - ci.Population) AS PopulationNotInCities, " +
+                    "       ROUND((SUM(c.Population - ci.Population) / SUM(c.Population)) * 100, 2) AS PercentageNotInCities " +
+                    "FROM country c " +
+                    "LEFT JOIN ( " +
+                    "    SELECT Region, SUM(Population) AS Population " +
+                    "    FROM country " +
+                    "    GROUP BY Region " +
+                    ") co ON c.Region = co.Region " +
+                    "LEFT JOIN ( " +
+                    "    SELECT CountryCode, SUM(Population) AS Population " +
                     "    FROM city " +
-                    "    JOIN country ON city.ID = country.Capital " +
-                    ") AS ranked_cities " +
-                    "WHERE row_num <= 5 " +
-                    "ORDER BY ranked_cities.Region, ranked_cities.Population DESC;";
+                    "    GROUP BY CountryCode " +
+                    ") ci ON c.Code = ci.CountryCode " +
+                    "GROUP BY co.Region";
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            capitals = getCitiesFromResultSet(rs);
+            populationDataList = getPopulationReportDataFromResultSet(rs);
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             System.out.println("Error executing SQL query: " + e.getMessage());
         }
-        return capitals;
+        return populationDataList;
     }
+
+    public ArrayList<PopulationData> getPopulationReportDataByCountry() {
+        ArrayList<PopulationData> populationDataList = new ArrayList<>();
+        try {
+            String query = "SELECT co.Name AS Name, " +
+                    "       SUM(c.Population) AS TotalPopulation, " +
+                    "       SUM(co.Population) AS PopulationInCountries, " +
+                    "       SUM(ci.Population) AS PopulationInCities, " +
+                    "       ROUND((SUM(ci.Population) / SUM(c.Population)) * 100, 2) AS PercentageInCities, " +
+                    "       SUM(c.Population - ci.Population) AS PopulationNotInCities, " +
+                    "       ROUND((SUM(c.Population - ci.Population) / SUM(c.Population)) * 100, 2) AS PercentageNotInCities " +
+                    "FROM country c " +
+                    "LEFT JOIN ( " +
+                    "    SELECT Name, SUM(Population) AS Population " +
+                    "    FROM country " +
+                    "    GROUP BY Name " +
+                    ") co ON c.Name = co.Name " +
+                    "LEFT JOIN ( " +
+                    "    SELECT CountryCode, SUM(Population) AS Population " +
+                    "    FROM city " +
+                    "    GROUP BY CountryCode " +
+                    ") ci ON c.Code = ci.CountryCode " +
+                    "GROUP BY co.Name";
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            populationDataList = getPopulationReportDataFromResultSet(rs);
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }
+        return populationDataList;
+    }
+
 
     public void disconnect() {
         if (con != null) {
