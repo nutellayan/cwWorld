@@ -2,8 +2,8 @@ package com.napier.sem;
 
 public class City {
     private String name;
-    private String countryName;
-    private String district;
+    private final String countryName;
+    private final String district;
     private int population;
 
     public City(String name, String countryName, String district, int population) {
@@ -24,18 +24,6 @@ public class City {
 
     public String getCountryName() {
         return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
     }
 
     public int getPopulation() {
