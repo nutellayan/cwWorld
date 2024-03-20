@@ -1,0 +1,87 @@
+@startuml
+
+actor Employee as "Employee"
+
+rectangle Database
+
+rectangle "Population System" {
+
+    /'User story 1-3'/
+    usecase UC1 as "Population Reports by countries"
+            note top
+              * In the world
+              * In a continent
+              * In a region
+            end note
+
+     usecase UC1_a as "Organised by largest
+        population to smallest"
+
+          Employee - UC1
+          UC1 - Database
+          UC1 ...> UC1_a
+
+     /'User story 4-8'/
+     usecase UC4 as "Population Reports by cities"
+            note top
+              * In the world
+              * In a continent
+              * In a region
+              * In a country
+              * In a district
+            end note
+
+     usecase UC4_a as "Organised by largest
+        population to smallest"
+
+          Employee - UC4
+          UC4 - Database
+          UC4 ..> UC4_a
+
+    /'User story 9-11'/
+     usecase UC9 as "Population Reports by capital cities"
+            note top
+              * In the world
+              * In a continent
+              * In a region
+            end note
+
+     usecase UC9_a as "Organised by largest
+        population to smallest"
+
+          Employee - UC9
+          UC9 - Database
+          UC9 ...> UC9_a
+
+     /'User story 12-20'/
+     usecase UC12 as "General Population Reports"
+            note top
+              * In each continent
+              * In each region
+              * In each country
+              * In a country
+              * In a district
+              * In a city
+            end note
+
+     usecase UC12_a as "Total population"
+
+             Employee - UC12
+             UC12 - Database
+             UC12 ..> UC12_a
+
+     /'User story 21'/
+     usecase UC21 as "Language Reports"
+
+             note top
+             * All in the world
+             end note
+
+     usecase UC21_a as "Organized by largest
+                 amount of speakers to smallest"
+
+             Employee - UC21
+             UC21 - Database
+             UC21 ...> UC21_a 
+}
+@enduml
