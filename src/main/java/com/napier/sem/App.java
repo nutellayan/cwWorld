@@ -1,6 +1,6 @@
 package com.napier.sem;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class App {
 
@@ -11,35 +11,67 @@ public class App {
         // Connect to the database
         dbManager.connect();
 
-        // Retrieve and print all capital cities
-        ArrayList<PopulationData> populationReportDataByContinent = dbManager.getPopulationReportDataByContinent();
-        printPopulationData(populationReportDataByContinent, "Population Report - People Living In/Not Living in Each Continent");
-
-        // Retrieve and print capital cities by continent and population
-        ArrayList<PopulationData> populationReportDataByRegion = dbManager.getPopulationReportDataByRegion();
-        printPopulationData(populationReportDataByRegion, "Population Report - People Living In/Not Living in Each Region");
-
-        // Retrieve and print capital cities by region and population
-        ArrayList<PopulationData> populationReportDataByCountry = dbManager.getPopulationReportDataByCountry();
-        printPopulationData(populationReportDataByCountry, "Population Report - People Living In/Not Living in Each Country");
+        // Prompt the user for input
+        Scanner scanner = new Scanner(System.in);
+        boolean shouldContinue = true;
+        while (shouldContinue) {
+            System.out.println("-------------------");
+            System.out.println("Please select an option:");
+            System.out.println("1. Get population of a continent");
+            System.out.println("2. Get population of a region");
+            System.out.println("3. Get population of a country");
+            System.out.println("4. Get population of a district");
+            System.out.println("5. Get population of a city");
+            System.out.println("6. Get population of the world");
+            System.out.println("7. Stop");
+            System.out.println("-------------------");
+        int option = scanner.nextInt();
+            scanner.nextLine();
+            switch (option) {
+                case 1:
+                    System.out.println("Enter the name of the continent:");
+                    String continentName = scanner.nextLine();
+                    long continentPopulation = dbManager.getContinentPopulation(continentName);
+                    System.out.println("Population of " + continentName + ": " + continentPopulation);
+                    break;
+                case 2:
+                    System.out.println("Enter the name of the region:");
+                    String regionName = scanner.nextLine();
+                    long regionPopulation = dbManager.getRegionPopulation(regionName);
+                    System.out.println("Population of " + regionName + ": " + regionPopulation);
+                    break;
+                case 3:
+                    System.out.println("Enter the name of the country:");
+                    String countryName = scanner.nextLine();
+                    long countryPopulation = dbManager.getCountryPopulation(countryName);
+                    System.out.println("Population of " + countryName + ": " + countryPopulation);
+                    break;
+                case 4:
+                    System.out.println("Enter the name of the district:");
+                    String districtName = scanner.nextLine();
+                    long districtPopulation = dbManager.getDistrictPopulation(districtName);
+                    System.out.println("Population of " + districtName + ": " + districtPopulation);
+                    break;
+                case 5:
+                    System.out.println("Enter the name of the city:");
+                    String cityName = scanner.nextLine();
+                    long cityPopulation = dbManager.getCityPopulation(cityName);
+                    System.out.println("Population of " + cityName + ": " + cityPopulation);
+                    break;
+                case 6:
+                    long worldPopulation = dbManager.getWorldPopulation();
+                    System.out.println("Population of the world: " + worldPopulation);
+                    break;
+                case 7:
+                    shouldContinue = false;
+                    break;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+                    break;
+            }
+        }
 
         // Disconnect from the database
         dbManager.disconnect();
     }
-
-    public static void printPopulationData(ArrayList<PopulationData> populationData, String header) {
-        System.out.println("===========================");
-        System.out.println(header);
-        System.out.println("===========================");
-        System.out.printf("%-40s %-25s %-25s %-25s %-25s %-20s%n",
-                "Name", "Total Population", "Population In Cities", "Percentage In Cities", "Population Not In Cities", "Percentage Not In Cities");
-        for (PopulationData data : populationData) {
-            String populationInfo = String.format("%-40s %-25d %-25d %-25f %-25d %-20.2f%n",
-                    data.getName(), data.getTotalPopulation(),
-                    data.getPopulationInCities(), data.getPercentageInCities(), data.getPopulationNotInCities(), data.getPercentageNotInCities());
-
-            System.out.print(populationInfo);
-        }
-    }
-
 }
