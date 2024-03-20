@@ -1,8 +1,9 @@
 version: '3'
 services:
-  # Application Dockerfile is in same folder which is .
-  app:
+  your-service-name:
     build: .
+    stdin_open: true  # Enable interaction with standard input
+    tty: true         # Allocate a pseudo-TTY
 
   # db is is db folder
   db:
