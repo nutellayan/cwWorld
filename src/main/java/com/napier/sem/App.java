@@ -1,77 +1,102 @@
 package com.napier.sem;
 
-import java.util.Scanner;
+import java.sql.*;
 
 public class App {
 
-    public static void main(String[] args) {
-        // Create new DatabaseManager
-        DatabaseManager dbManager = new DatabaseManager();
+    private Connection con = null;
 
-        // Connect to the database
-        dbManager.connect();
-
-        // Prompt the user for input
-        Scanner scanner = new Scanner(System.in);
-        boolean shouldContinue = true;
-        while (shouldContinue) {
-            System.out.println("-------------------");
-            System.out.println("Please select an option:");
-            System.out.println("1. Get population of a continent");
-            System.out.println("2. Get population of a region");
-            System.out.println("3. Get population of a country");
-            System.out.println("4. Get population of a district");
-            System.out.println("5. Get population of a city");
-            System.out.println("6. Get population of the world");
-            System.out.println("7. Stop");
-            System.out.println("-------------------");
-        int option = scanner.nextInt();
-            scanner.nextLine();
-            switch (option) {
-                case 1:
-                    System.out.println("Enter the name of the continent:");
-                    String continentName = scanner.nextLine();
-                    long continentPopulation = dbManager.getContinentPopulation(continentName);
-                    System.out.println("Population of " + continentName + ": " + continentPopulation);
-                    break;
-                case 2:
-                    System.out.println("Enter the name of the region:");
-                    String regionName = scanner.nextLine();
-                    long regionPopulation = dbManager.getRegionPopulation(regionName);
-                    System.out.println("Population of " + regionName + ": " + regionPopulation);
-                    break;
-                case 3:
-                    System.out.println("Enter the name of the country:");
-                    String countryName = scanner.nextLine();
-                    long countryPopulation = dbManager.getCountryPopulation(countryName);
-                    System.out.println("Population of " + countryName + ": " + countryPopulation);
-                    break;
-                case 4:
-                    System.out.println("Enter the name of the district:");
-                    String districtName = scanner.nextLine();
-                    long districtPopulation = dbManager.getDistrictPopulation(districtName);
-                    System.out.println("Population of " + districtName + ": " + districtPopulation);
-                    break;
-                case 5:
-                    System.out.println("Enter the name of the city:");
-                    String cityName = scanner.nextLine();
-                    long cityPopulation = dbManager.getCityPopulation(cityName);
-                    System.out.println("Population of " + cityName + ": " + cityPopulation);
-                    break;
-                case 6:
-                    long worldPopulation = dbManager.getWorldPopulation();
-                    System.out.println("Population of the world: " + worldPopulation);
-                    break;
-                case 7:
-                    shouldContinue = false;
-                    break;
-                default:
-                    System.out.println("Invalid option. Please try again.");
-                    break;
-            }
+    public void connect() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Could not load SQL driver");
+            System.exit(-1);
         }
 
-        // Disconnect from the database
-        dbManager.disconnect();
+        int retries = 10;
+        for (int i = 0; i < retries; ++i) {
+            System.out.println("Connecting to database...");
+            try {
+                Thread.sleep(10000);
+                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                System.out.println("Successfully connected");
+                break;
+            } catch (SQLException | InterruptedException ex) {
+                System.out.println("Failed to connect to database attempt " + i);
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    public void printLanguageStatistics() {
+        try {
+            String query = "SELECT " +
+                    "    Language, " +
+                    "    TotalLanguage AS \"Total Number of People\", " +
+                    "    TotalLanguage / World.Population AS Percentage " +
+                    "FROM " +
+                    "    (SELECT " +
+                    "        Language, " +
+                    "        SUM(countrylanguage.Percentage * country.Population) AS TotalLanguage " +
+                    "    FROM " +
+                    "        countrylanguage " +
+                    "    JOIN " +
+                    "        country ON country.Code = countrylanguage.CountryCode " +
+                    "    WHERE " +
+                    "        countrylanguage.Language IN ('Chinese', 'English', 'Hindi', 'Spanish', 'Arabic') " +
+                    "    GROUP BY " +
+                    "        Language) AS languagepopulation " +
+                    "JOIN " +
+                    "    (SELECT " +
+                    "        SUM(Population) AS Population " +
+                    "    FROM " +
+                    "        country) AS World " +
+                    "ORDER BY " +
+                    "    TotalLanguage DESC;";
+
+            PreparedStatement pstmt = con.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+
+            System.out.println("===========================");
+            System.out.println("Language Statistics");
+            System.out.println("===========================");
+            System.out.printf("%-20s %-30s %-20s%n", "Language", "Total Number of People", "Percentage");
+
+            while (rs.next()) {
+                String language = rs.getString("Language");
+                double totalPopulation = rs.getDouble("Total Number of People"); // Update variable name
+                double percentage = rs.getDouble("Percentage");
+
+                System.out.printf("%-20s %-30.0f %-20f%n", language, totalPopulation, percentage); // Adjust format for totalPopulation
+            }
+
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            System.out.println("Error executing SQL query: " + e.getMessage());
+        }
+    }
+
+
+    public void disconnect() {
+        if (con != null) {
+            try {
+                con.close();
+                System.out.println("Disconnected from database");
+            } catch (SQLException e) {
+                System.out.println("Error closing connection to database");
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        App app = new App();
+        app.connect();
+        // Print Countries
+        app.printLanguageStatistics();
+
+        app.disconnect();
     }
 }
