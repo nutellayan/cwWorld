@@ -2,12 +2,12 @@ package com.napier.sem;
 
 public class City {
     private String name;
-    private String countryName;
-    private String district;
-    private String continent; // Add continent field
+    private final String countryName;
+    private final String district;
+    private final String continent; // Add continent field
     private int population;
 
-    public City(String name, String countryName, String district, String continent, int population, String freeCity) {
+    public City(String name, String countryName, String district, String continent, int population) {
         this.name = name;
         this.countryName = countryName;
         this.district = district;
@@ -28,24 +28,8 @@ public class City {
         return countryName;
     }
 
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
-
     public String getDistrict() {
         return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getContinent() {
-        return continent;
-    }
-
-    public void setContinent(String continent) {
-        this.continent = continent;
     }
 
     public int getPopulation() {

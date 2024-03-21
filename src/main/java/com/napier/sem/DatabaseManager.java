@@ -44,7 +44,7 @@ public class DatabaseManager {
                 String district = rs.getString("District");
                 String continent = rs.getString("Continent"); // Add continent
                 int population = rs.getInt("Population");
-                City city = new City(name, country, district, continent, population, "Free City"); // Adjust constructor call
+                City city = new City(name, country, district, continent, population); // Adjust constructor call
                 cities.add(city);
             }
         } catch (SQLException e) {
@@ -71,7 +71,7 @@ public class DatabaseManager {
         }
         return cities;
     }
-    public ArrayList<City> getCitiesByContinent(String continent) {
+    public ArrayList<City> getCitiesByContinent() {
         ArrayList<City> cities = new ArrayList<>();
         try {
             // Construct the SQL query with the continent value embedded
@@ -91,7 +91,7 @@ public class DatabaseManager {
         return cities;
     }
 
-    public ArrayList<City> getCitiesByRegion(String region) {
+    public ArrayList<City> getCitiesByRegion(String ignoredRegion) {
         ArrayList<City> cities = new ArrayList<>();
         try {
             String query = "SELECT city.Name, country.Name AS Country, city.District, city.Population, country.Region " +
@@ -112,7 +112,7 @@ public class DatabaseManager {
 
 
 
-    public ArrayList<City> getCitiesByCountry(String countryName) {
+    public ArrayList<City> getCitiesByCountry() {
         ArrayList<City> cities = new ArrayList<>();
         try {
             String query = "SELECT city.Name, country.Name AS Country, city.District, city.Population " +
@@ -131,7 +131,7 @@ public class DatabaseManager {
     }
 
 
-    public ArrayList<City> getCitiesByDistrict(String district) {
+    public ArrayList<City> getCitiesByDistrict() {
         ArrayList<City> cities = new ArrayList<>();
         try {
             String query = "SELECT city.Name AS City_Name, country.Name AS Country, city.District, city.Population " +
