@@ -2,12 +2,12 @@ package com.napier.sem;
 
 public class Country {
 
-    private String code;
-    private String name;
-    private String continent;
-    private String region;
-    private int population;
-    private String capital;
+    public String code;
+    public String name;
+    public String continent;
+    public String region;
+    public int population;
+    public String capital;
 
     public Country(String code, String name, String continent, String region, int population, String capital) {
         this.code = code;
