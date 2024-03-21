@@ -155,13 +155,20 @@ public class App {
     }
 
     public void printCountries(ArrayList<Country> countries) {
+        if (countries == null)
+        {
+            System.out.println("No countries");
+            return;
+        }
         System.out.println("===========================");
         System.out.println("Country Report by Country");
         System.out.println("===========================");
-        System.out.printf("%-10s %-50s %-20s %-40s %-15s %-20s%n",
+        System.out.printf("%-10s %-20s %-20s %-20s %-15s %-20s%n",
                 "Code", "Name", "Continent", "Region", "Population", "Capital");
         for (Country country : countries) {
-            String countryInfo = String.format("%-10s %-50s %-20s %-40s %-15d %-20s",
+            if (country == null)
+                continue;
+            String countryInfo = String.format("%-10s %-20s %-20s %-20s %-15d %-20s",
                     country.getCode(), country.getName(), country.getContinent(),
                     country.getRegion(), country.getPopulation(), country.getCapital());
             System.out.println(countryInfo);
