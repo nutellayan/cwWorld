@@ -7,7 +7,7 @@ public class City {
     private String continent; // Add continent field
     private int population;
 
-    public City(String name, String countryName, String district, String continent, int population) {
+    public City(String name, String countryName, String district, String continent, int population, String freeCity) {
         this.name = name;
         this.countryName = countryName;
         this.district = district;

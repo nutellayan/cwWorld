@@ -12,6 +12,7 @@ public class App {
         dbManager.connect();
 
         // Retrieve and print all cities
+        // Retrieve and print all cities
         ArrayList<City> allCities = dbManager.getAllCities();
         printCities(allCities, "World");
 
@@ -36,13 +37,20 @@ public class App {
     }
 
     public static void printCities(ArrayList<City> cities, String header) {
+        if (cities == null)
+        {
+            System.out.println("No cities");
+            return;
+        }
         System.out.println("===========================");
         System.out.println("City Report by " + header);
         System.out.println("===========================");
-        System.out.printf("%-40s %-40s %-30s %-15s%n",
+        System.out.printf("%-20s %-20s %-20s %-15s%n",
                 "City Name", "Country", "District", "Population");
         for (City city : cities) {
-            String cityInfo = String.format("%-40s %-40s %-30s %-15d",
+            if(city ==null)
+                continue;
+            String cityInfo = String.format("%-20s %-20s %-20s %-15d",
                     city.getName(), city.getCountryName(), city.getDistrict(), city.getPopulation());
             System.out.println(cityInfo);
         }

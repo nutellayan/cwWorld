@@ -44,7 +44,7 @@ public class DatabaseManager {
                 String district = rs.getString("District");
                 String continent = rs.getString("Continent"); // Add continent
                 int population = rs.getInt("Population");
-                City city = new City(name, country, district, continent, population); // Adjust constructor call
+                City city = new City(name, country, district, continent, population, "Free City"); // Adjust constructor call
                 cities.add(city);
             }
         } catch (SQLException e) {

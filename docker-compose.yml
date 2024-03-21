@@ -1,10 +1,10 @@
 version: '3'
 services:
-  # Application Dockerfile is in same folder which is .
   app:
     build: .
-
-  # db is is db folder
+    stdin_open: true  # Enable interaction with standard input
+    tty: true         # Allocate a pseudo-TTY
+    # db is in the db folder
   db:
     build: db/.
     command: --default-authentication-plugin=mysql_native_password
