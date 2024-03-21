@@ -135,6 +135,12 @@ public class App {
     }
 
     public void printCountries(ArrayList<Country> countries) {
+        // Check employees is not null
+        if (countries == null)
+        {
+            System.out.println("No country");
+            return;
+        }
         System.out.println("===========================");
         System.out.println("Country Report by Country");
         System.out.println("===========================");
