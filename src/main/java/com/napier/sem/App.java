@@ -12,24 +12,23 @@ public class App {
         dbManager.connect();
 
         // Retrieve and print all cities
-        // Retrieve and print all cities
         ArrayList<City> allCities = dbManager.getAllCities();
         printCities(allCities, "World");
 
         // Retrieve and print cities by continent
-        ArrayList<City> citiesByContinent = dbManager.getCitiesByContinent("your_continent");
+        ArrayList<City> citiesByContinent = dbManager.getCitiesByContinent("Europe");
         printCities(citiesByContinent, "Continent");
 
         // Retrieve and print cities by region
-        ArrayList<City> citiesByRegion = dbManager.getCitiesByRegion("your_region");
+        ArrayList<City> citiesByRegion = dbManager.getCitiesByRegion("Caribbean");
         printCities(citiesByRegion, "Region");
 
         // Retrieve and print cities by country
-        ArrayList<City> citiesByCountry = dbManager.getCitiesByCountry("your_country");
+        ArrayList<City> citiesByCountry = dbManager.getCitiesByCountry("Australia");
         printCities(citiesByCountry, "Country");
 
         // Retrieve and print cities by district
-        ArrayList<City> citiesByDistrict = dbManager.getCitiesByDistrict("your_district");
+        ArrayList<City> citiesByDistrict = dbManager.getCitiesByDistrict("Kabol");
         printCities(citiesByDistrict, "District");
 
         // Disconnect from the database
