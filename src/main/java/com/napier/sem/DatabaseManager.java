@@ -42,8 +42,8 @@ public class DatabaseManager {
                 String name = rs.getString("CityName");
                 String country = rs.getString("Country");
                 String district = rs.getString("District");
-                                int population = rs.getInt("Population");
-                City city = new City(name, country, district, population); // Adjust constructor call
+                int population = rs.getInt("Population");
+                City city = new City("Sydney", name, country, district, population, "Free City"); // Adjust constructor call
                 cities.add(city);
             }
         } catch (SQLException e) {

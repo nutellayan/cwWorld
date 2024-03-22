@@ -6,7 +6,7 @@ public class City {
     private String district;
     private int population;
 
-    public City(String name, String countryName, String district, int population) {
+    public City(String sydney, String name, String countryName, String district, int population, String freeCity) {
         this.name = name;
         this.countryName = countryName;
         this.district = district;
