@@ -69,8 +69,8 @@ public class App {
 
     public void printCountries(ArrayList<Country> countries) {
         // Check if the input ArrayList is null
-        if (countries == null) {
-            System.out.println("No countries");
+        if (countries == null || countries.isEmpty()) {
+            System.out.println("No countries to print.");
             return;
         }
 
