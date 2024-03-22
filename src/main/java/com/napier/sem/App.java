@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Connection;
 
 public class App {
 
@@ -65,6 +66,7 @@ public class App {
         }
         return countries;
     }
+
     public void printCountries(ArrayList<Country> countries) {
         // Check if the input ArrayList is null
         if (countries == null) {
@@ -104,20 +106,25 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
-        if(args.length < 1){
-            app.connect("localhost:3306", 10000);
-        }else{
+        if (args.length < 1) {
+            app.connect("db:33060", 10000);
+        } else {
             app.connect(args[0], Integer.parseInt(args[1]));
         }
 
-        ArrayList<Country> countries = app.getAllCountries();
+        if (app.con != null) { // Assuming 'con' is the Connection field in the App class
+            ArrayList<Country> countries = app.getAllCountries();
 
-        // Print Countries
-        app.printCountries(countries);
+            // Print Countries
+            app.printCountries(countries);
 
-        // Test the size of the returned data
-        System.out.println("Number of countries retrieved: " + countries.size());
-
+            // Test the size of the returned data
+            System.out.println("Number of countries retrieved: " + countries.size());
+        } else {
+            System.out.println("Failed to establish connection to the database.");
+        }
         app.disconnect();
     }
 }
+
+
