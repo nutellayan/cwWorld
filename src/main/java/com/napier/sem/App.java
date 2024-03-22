@@ -7,7 +7,7 @@ public class App {
 
     private Connection con = null;
 
-    public void connect() {
+    public void connect(String location, int delay) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -19,13 +19,17 @@ public class App {
         for (int i = 0; i < retries; ++i) {
             System.out.println("Connecting to database...");
             try {
-                Thread.sleep(30000);
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/world?useSSL=false", "root", "example");
+                // Wait a bit for db to start
+                Thread.sleep(delay);
+                // Connect to database
+                con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
-            } catch (SQLException | InterruptedException ex) {
+            } catch (SQLException sqle) {
                 System.out.println("Failed to connect to database attempt " + i);
-                System.out.println(ex.getMessage());
+                System.out.println(sqle.getMessage());
+            } catch (InterruptedException ie) {
+                System.out.println("Thread interrupted? Should not happen.");
             }
         }
     }
@@ -62,11 +66,22 @@ public class App {
         return countries;
     }
     public void printCountries(ArrayList<Country> countries) {
+        // Check if the input ArrayList is null
+        if (countries == null) {
+            System.out.println("No countries");
+            return;
+        }
+
         // Print header
         System.out.printf("%-10s %-50s %-20s %-40s %-15s %-20s%n",
                 "Code", "Name", "Continent", "Region", "Population", "Capital");
+
         // Loop over all countries in the list
         for (Country country : countries) {
+            if (country == null) {
+                // Skip null entries
+                continue;
+            }
             String countryInfo = String.format("%-10s %-50s %-20s %-40s %-15d %-20s",
                     country.getCode(), country.getName(), country.getContinent(),
                     country.getRegion(), country.getPopulation(), country.getCapital());
@@ -89,7 +104,11 @@ public class App {
 
     public static void main(String[] args) {
         App app = new App();
-        app.connect();
+        if(args.length < 1){
+            app.connect("localhost:3306", 10000);
+        }else{
+            app.connect(args[0], Integer.parseInt(args[1]));
+        }
 
         ArrayList<Country> countries = app.getAllCountries();
 
