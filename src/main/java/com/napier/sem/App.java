@@ -28,12 +28,23 @@ public class App {
     }
 
     public static void printCities(ArrayList<City> cities, String header) {
+        if (cities == null) {
+            System.out.println("No cities");
+            return;
+        }
+
+        if (header == null) {
+            System.out.println("Invalid header");
+            return;
+        }
         System.out.println("===========================");
         System.out.println("Capital Report by " + header);
         System.out.println("===========================");
         System.out.printf("%-40s %-40s %-15s%n",
                 "City Name", "Country", "Population");
         for (City city : cities) {
+            if (city == null)
+                continue;
             String cityInfo = String.format("%-40s %-40s %-15d",
                     city.getName(), city.getCountryName(), city.getPopulation());
             System.out.println(cityInfo);
