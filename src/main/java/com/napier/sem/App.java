@@ -27,18 +27,29 @@ public class App {
         dbManager.disconnect();
     }
 
-    public static void printPopulationData(ArrayList<PopulationData> populationData, String header) {
+        public static void printPopulationData(ArrayList<PopulationData> populationData, String header) {
+            if (populationData == null) {
+                System.out.println("No Data");
+                return;
+            }
+
+            if (header == null) {
+                System.out.println("Invalid header");
+                return;
+            }
         System.out.println("===========================");
         System.out.println(header);
         System.out.println("===========================");
         System.out.printf("%-40s %-25s %-25s %-25s %-25s %-20s%n",
                 "Name", "Total Population", "Population In Cities", "Percentage In Cities", "Population Not In Cities", "Percentage Not In Cities");
         for (PopulationData data : populationData) {
+            if (data == null)
+                continue;
             String populationInfo = String.format("%-40s %-25d %-25d %-25f %-25d %-20.2f%n",
                     data.getName(), data.getTotalPopulation(),
                     data.getPopulationInCities(), data.getPercentageInCities(), data.getPopulationNotInCities(), data.getPercentageNotInCities());
 
-            System.out.print(populationInfo);
+            System.out.println(populationInfo);
         }
     }
 
