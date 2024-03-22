@@ -57,19 +57,16 @@ public class App {
 
             PreparedStatement pstmt = con.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
-
-            System.out.println("===========================");
-            System.out.println("Language Statistics");
-            System.out.println("===========================");
-            System.out.printf("%-20s %-30s %-20s%n", "Language", "Total Number of People", "Percentage");
-
-            while (rs.next()) {
+            if (!rs.next()) {
+                System.out.println("No language statistics found");
+                return;
+            } do {
                 String language = rs.getString("Language");
-                double totalPopulation = rs.getDouble("Total Number of People"); // Update variable name
+                double totalPopulation = rs.getDouble("Total Number of People");
                 double percentage = rs.getDouble("Percentage");
 
-                System.out.printf("%-20s %-30.0f %-20f%n", language, totalPopulation, percentage); // Adjust format for totalPopulation
-            }
+                System.out.printf("%-20s %-30.0f %-20f%n", language, totalPopulation, percentage);
+            } while (rs.next());
 
             rs.close();
             pstmt.close();
