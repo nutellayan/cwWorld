@@ -9,7 +9,7 @@ public class AppTest {
     void printCities() {
         ArrayList<City> cities = new ArrayList<>();
         // Create a sample city object
-        City city = new City("Sydney", "Australia", "All", "Freeland", 1, "Free City");
+        City city = new City("Sydney", "Australia", "All", 1);
         // Add the city object to the list
         cities.add(city);
 
