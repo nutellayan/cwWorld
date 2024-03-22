@@ -1,5 +1,6 @@
 package com.napier.sem;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ public class AppTest
 {
     static App app;
 
-    // Initialize the App object before running any tests
+    @BeforeAll// Initialize the App object before running any tests
     static void init() {
         app = new App();
     }
