@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Connection;
 
 public class App {
 
@@ -11,10 +12,13 @@ public class App {
         // Create new Application
         App a = new App();
 
-        // Connect to database
-        a.connect();
+        if (args.length < 1) {
+            a.connect("db:33060", 10000);
+        } else {
+            a.connect(args[0], Integer.parseInt(args[1]));
+        }
 
-        // Retrieve and print countries
+        if (a.con != null) { // Ensure con is initialized
         ArrayList<Country> countries = a.getAllCountries();
         a.printCountries(countries);
 
@@ -26,11 +30,14 @@ public class App {
         ArrayList<Country> countriesByRegion = a.getCountriesByRegion();
         a.printCountriesByRegion(countriesByRegion);
 
-        // Disconnect from database
+            System.out.println("Number of countries retrieved: " + countries.size());
+        } else {
+            System.out.println("Failed to establish connection to the database.");
+        }
         a.disconnect();
     }
 
-    public void connect() {
+    public void connect(String location, int delay) {
         try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -44,9 +51,9 @@ public class App {
             System.out.println("Connecting to database...");
             try {
                 // Wait a bit for db to start
-                Thread.sleep(10000);
+                Thread.sleep(delay);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             } catch (SQLException sqle) {
@@ -80,11 +87,12 @@ public class App {
     public ArrayList<Country> getAllCountries() {
         ArrayList<Country> countries = new ArrayList<>();
         try {
-            // SQL query 1
+            // Create SQL statement
+            Statement stmt = con.createStatement();
             String query = "SELECT Code, Name, Continent, Region, Population, Capital " +
                     "FROM country " +
                     "ORDER BY Population DESC";
-            Statement stmt = con.createStatement();
+            // Execute SQL query
             ResultSet rs = stmt.executeQuery(query);
             countries = getCountriesFromResultSet(rs);
             rs.close();
