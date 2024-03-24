@@ -7,7 +7,7 @@ public class DatabaseManager {
 
     private Connection con = null;
 
-    public void connect() {
+    public void connect(String location, int delay) {
         try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -21,9 +21,9 @@ public class DatabaseManager {
             System.out.println("Connecting to database...");
             try {
                 // Wait a bit for db to start
-                Thread.sleep(10000);
+                Thread.sleep(delay);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             } catch (SQLException sqle) {
@@ -71,7 +71,7 @@ public class DatabaseManager {
         }
         return cities;
     }
-    public ArrayList<City> getCitiesByContinent(String continent) {
+    public ArrayList<City> getCitiesByContinent(String ignoredContinent) {
         ArrayList<City> cities = new ArrayList<>();
         try {
             // Construct the SQL query with the continent value embedded
@@ -100,7 +100,7 @@ public class DatabaseManager {
         return cities;
     }
 
-    public ArrayList<City> getCitiesByRegion(String region) {
+    public ArrayList<City> getCitiesByRegion(String ignoredRegion) {
         ArrayList<City> cities = new ArrayList<>();
         try {
             // Construct the SQL query with the region value embedded
@@ -130,7 +130,7 @@ public class DatabaseManager {
         return cities;
     }
 
-    public ArrayList<City> getCitiesByCountry(String country) {
+    public ArrayList<City> getCitiesByCountry(String ignoredCountry) {
         ArrayList<City> cities = new ArrayList<>();
         try {
             // Construct the SQL query with the region value embedded
@@ -155,7 +155,7 @@ public class DatabaseManager {
         }
         return cities;
     }
-    public ArrayList<City> getCitiesByDistrict(String district) {
+    public ArrayList<City> getCitiesByDistrict(String ignoredDistrict) {
         ArrayList<City> cities = new ArrayList<>();
         try {
             // Construct the SQL query with the region value embedded

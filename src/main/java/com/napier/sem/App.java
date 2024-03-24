@@ -2,14 +2,17 @@ package com.napier.sem;
 
 import java.util.ArrayList;
 
+
 public class App {
 
     public static void main(String[] args) {
         // Create new DatabaseManager
         DatabaseManager dbManager = new DatabaseManager();
-
-        // Connect to the database
-        dbManager.connect();
+        if (args.length < 1) {
+            dbManager.connect("db:33060", 30000);
+        } else {
+            dbManager.connect(args[0], Integer.parseInt(args[1]));
+        }
 
         // Retrieve and print all cities
         ArrayList<City> allCities = dbManager.getAllCities();
