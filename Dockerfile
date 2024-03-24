@@ -1,4 +1,4 @@
 FROM openjdk:latest
-COPY ./target/cwWorld-1.3-SNAPSHOT-jar-with-dependencies.jar /tmp
+COPY ./target/cwWorld.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar", "cwWorld-1.3-SNAPSHOT-jar-with-dependencies.jar"]
+ENTRYPOINT ["java", "-jar", "cwWorld.jar","db:3306", "30000"]
