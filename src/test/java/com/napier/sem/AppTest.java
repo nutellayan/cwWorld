@@ -9,7 +9,7 @@ public class AppTest {
         // Create new DatabaseManager
         DatabaseManager dbManager = new DatabaseManager();
         // Connect to the database
-        dbManager.connect();
+        dbManager.connect("localhost:33060", 30000);
 
         // Call the method under test
         long population = dbManager.getContinentPopulation("Africa");
@@ -29,7 +29,7 @@ public class AppTest {
         // Create new DatabaseManager
         DatabaseManager dbManager = new DatabaseManager();
         // Connect to the database
-        dbManager.connect();
+        dbManager.connect("localhost:33060", 30000);
 
         // Call the method under test
         long population = dbManager.getRegionPopulation("Central Africa");
