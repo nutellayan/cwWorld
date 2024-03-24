@@ -7,7 +7,7 @@ public class DatabaseManager {
 
     private Connection con = null;
 
-    public void connect() {
+    public void connect(String location, int delay) {
         try {
             // Load Database driver
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -21,10 +21,9 @@ public class DatabaseManager {
             System.out.println("Connecting to database...");
             try {
                 // Wait a bit for db to start
-                Thread.sleep(10000);
+                Thread.sleep(delay);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
-                System.out.println("Successfully connected");
+                con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");                System.out.println("Successfully connected");
                 break;
             } catch (SQLException sqle) {
                 System.out.println("Failed to connect to database attempt " + i);
@@ -54,9 +53,9 @@ public class DatabaseManager {
     public ArrayList<City> getCapitalCitiesByPopulation() {
         ArrayList<City> capitals = new ArrayList<>();
         try {
-            String query = "SELECT City.Name AS Name, City.CountryCode AS Country, City.Population AS Population " +
-                    "FROM City " +
-                    "JOIN Country ON City.ID = Country.Capital " +
+            String query = "SELECT city.Name AS Name, city.CountryCode AS Country, city.Population AS Population " +
+                    "FROM city " +
+                    "JOIN country ON city.ID = country.Capital " +
                     "ORDER BY Population DESC";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -72,10 +71,10 @@ public class DatabaseManager {
     public ArrayList<City> getCapitalCitiesByContinentPopulation() {
         ArrayList<City> capitals = new ArrayList<>();
         try {
-            String query = "SELECT City.Name AS Name, City.Population AS Population, City.CountryCode AS Country, Country.Continent AS Continent " +
-                    "FROM City " +
-                    "JOIN Country ON City.ID = Country.Capital " +
-                    "ORDER BY Country.Continent, City.Population DESC";
+            String query = "SELECT city.Name AS Name, city.Population AS Population, city.CountryCode AS Country, country.Continent AS Continent " +
+                    "FROM city " +
+                    "JOIN country ON city.ID = country.Capital " +
+                    "ORDER BY country.Continent, city.Population DESC";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             capitals = getCitiesFromResultSet(rs);
@@ -90,10 +89,10 @@ public class DatabaseManager {
     public ArrayList<City> getCapitalCitiesByRegionPopulation() {
         ArrayList<City> capitals = new ArrayList<>();
         try {
-            String query = "SELECT City.Name AS Name, City.Population AS Population, Country.Name AS Country, Country.Region AS Region " +
-                    "FROM City " +
-                    "JOIN Country ON City.ID = Country.Capital " +
-                    "ORDER BY Country.Region, City.Population DESC";
+            String query = "SELECT city.Name AS Name, city.Population AS Population, country.Name AS Country, country.Region AS Region " +
+                    "FROM city " +
+                    "JOIN country ON city.ID = country.Capital " +
+                    "ORDER BY country.Region, city.Population DESC";
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             capitals = getCitiesFromResultSet(rs);
