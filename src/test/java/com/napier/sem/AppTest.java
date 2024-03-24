@@ -9,7 +9,7 @@ public class AppTest {
     @BeforeAll
     static void init() {
         app = new App();
-        app.connect(); // Ensure connection is established before tests
+        app.connect("localhost:33060", 30000); // Ensure connection is established before tests
     }
 
     @Test
@@ -23,7 +23,7 @@ public class AppTest {
         // Since there's no specific input data, test what happens when the result set is empty
         // Disconnecting and reconnecting to reset the state
         app.disconnect();
-        app.connect();
+        app.connect("localhost:33060", 30000);
         app.printLanguageStatistics();
     }
 
@@ -32,7 +32,7 @@ public class AppTest {
         // Test what happens when the result set contains null values
         // Disconnecting and reconnecting to reset the state
         app.disconnect();
-        app.connect();
+        app.connect("localhost:33060", 30000);
         // Call printLanguageStatistics with a null ResultSet
     }
 }
