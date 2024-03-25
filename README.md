@@ -25,9 +25,11 @@
   |     14      | Full use cases defined.                                                                                                                                                                                              |      Done       |
   |     15      | Use case diagram created.                                                                                                                                                                                            |      Done       |
 
--The Kanban/Project Board can be accessed from [this link.](https://zube.io/napier-331/cwworld/w/workspace-1/kanban)
--The CodeCov can be accessed from [this link.](https://app.codecov.io/gh/nutellayan/cwWorld)
-
+----------------------------------------------------------
+1. The Kanban/Project Board can be accessed from [this link.](https://zube.io/napier-331/cwworld/w/workspace-1/kanban)
+2. The CodeCov can be accessed from [this link.](https://app.codecov.io/gh/nutellayan/cwWorld)
+3. Here is the Use Case Diagram ![This is the alt-attribute for my image](https://github.com/nutellayan/cwWorld/blob/557a5b412cf53808a156189a8e10cf6c499454aa/use-cases/use-cases-backup/Diagram.PNG)
+-----------------------------------------------------------
 * ## Queries for Code Review 2
 | **ID** | **Name**                                                                                                                                   | **Met** | **Screenshot**                                                                                             |
 |--------|--------------------------------------------------------------------------------------------------------------------------------------------|---------|------------------------------------------------------------------------------------------------------------|
