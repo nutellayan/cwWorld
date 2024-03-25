@@ -1,12 +1,33 @@
-# Software Engineering Methods
+## Software Engineering Methods - Assessment
 * Master Build Status ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/nutellayan/cwWorld/main.yml?branch=master)
 * Develop Branch Status ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/nutellayan/cwWorld/main.yml?branch=develop)
 * License [![LICENSE](https://img.shields.io/github/license/nutellayan/cwWorld.svg?style=flat-square)](https://github.com/nutellayan/cwWorld/blob/master/LICENSE)
 * Release [![Releases](https://img.shields.io/github/release/nutellayan/cwWorld/all.svg?style=flat-square)](https://github.com/nutellayan/cwWorld/releases)
 * Develop Coverage [![codecov](https://codecov.io/gh/nutellayan/cwWorld/graph/badge.svg?token=1XZ9TNYZBU)](https://codecov.io/gh/nutellayan/cwWorld)
 * Master Coverage [![codecov](https://codecov.io/gh/nutellayan/cwWorld/graph/badge.svg?token=1XZ9TNYZBU)](https://codecov.io/gh/nutellayan/cwWorld)
+-------------------------------------
+* ## Checklist for Code Review 1
+* | Task number | Description                                                                                                                                                                                                          | Done / Not Done |
+  |:-----------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------:|
+  |      1      | GitHub project for coursework set-up                                                                                                                                                                                 |      Done       |
+  |      2      | Product Backlog created.                                                                                                                                                                                             |      Done       |
+  |      3      | Project builds to self-contained JAR with Maven.                                                                                                                                                                     |      Done       |
+  |      4      | Dockerfile for project set-up and works.                                                                                                                                                                             |      Done       |
+  |      5      | GitHub Actions for project set-up and build is working using JAR, and Docker on GitHub Actions.                                                                                                                      |      Done       |
+  |      6      | Correct branches for GitFlow workflow created - includes <span style= 'background:blue'> master</span>, <span style= 'background:blue'> develop</span>, and <span style= 'background:blue'> release</span> branches. |      Done       |
+  |      7      | First release created on GitHub.                                                                                                                                                                                     |      Done       |
+  |      8      | Code of Conduct defined.                                                                                                                                                                                             |      Done       |
+  |      9      | Issues being used on GitHub.                                                                                                                                                                                         |      Done       |
+  |     10      | Tasks defined as user stories.                                                                                                                                                                                       |      Done       |
+  |     11      | Project integrated with Zube.io.                                                                                                                                                                                     |      Done       |
+  |     12      | Kanban/Project Board being used.                                                                                                                                                                                     |      Done       |
+  |     13      | Sprint Boards being used.                                                                                                                                                                                            |      Done       |
+  |     14      | Full use cases defined.                                                                                                                                                                                              |      Done       |
+  |     15      | Use case diagram created.                                                                                                                                                                                            |      Done       |
 
-* 
+-The Kanban/Project Board can be accessed from [this link.](https://zube.io/napier-331/cwworld/w/workspace-1/kanban)
+-The CodeCov can be accessed from [this link.](https://app.codecov.io/gh/nutellayan/cwWorld)
+
 * ## Queries for Code Review 2
 | **ID** | **Name**                                                                                                                                   | **Met** | **Screenshot**                                                                                             |
 |--------|--------------------------------------------------------------------------------------------------------------------------------------------|---------|------------------------------------------------------------------------------------------------------------|
