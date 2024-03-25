@@ -4,6 +4,7 @@
 * License [![LICENSE](https://img.shields.io/github/license/nutellayan/cwWorld.svg?style=flat-square)](https://github.com/nutellayan/cwWorld/blob/master/LICENSE)
 * Release [![Releases](https://img.shields.io/github/release/nutellayan/cwWorld/all.svg?style=flat-square)](https://github.com/nutellayan/cwWorld/releases)
 * Develop Coverage [![codecov](https://codecov.io/gh/nutellayan/cwWorld/graph/badge.svg?token=1XZ9TNYZBU)](https://codecov.io/gh/nutellayan/cwWorld)
+* Master Coverage [![codecov](https://codecov.io/gh/nutellayan/cwWorld/graph/badge.svg?token=1XZ9TNYZBU)](https://codecov.io/gh/nutellayan/cwWorld)
 
 * 
 * ## Queries for Code Review 2
