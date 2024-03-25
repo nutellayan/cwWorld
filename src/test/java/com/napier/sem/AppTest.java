@@ -1,13 +1,13 @@
 package com.napier.sem;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AppTest {
-    static App app;
+    private App app;
 
-    @BeforeAll
-    static void init() {
+    @BeforeEach
+    void init() {
         app = new App();
         app.connect("localhost:33060", 30000); // Ensure connection is established before tests
     }
@@ -21,18 +21,12 @@ public class AppTest {
     @Test
     void printLanguageStatisticsTestEmpty() {
         // Since there's no specific input data, test what happens when the result set is empty
-        // Disconnecting and reconnecting to reset the state
-        app.disconnect();
-        app.connect("localhost:33060", 30000);
         app.printLanguageStatistics();
     }
 
     @Test
     void printLanguageStatisticsTestContainsNull() {
         // Test what happens when the result set contains null values
-        // Disconnecting and reconnecting to reset the state
-        app.disconnect();
-        app.connect("localhost:33060", 30000);
-        // Call printLanguageStatistics with a null ResultSet
+        // You can add your test logic here
     }
 }
