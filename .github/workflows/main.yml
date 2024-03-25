@@ -1,9 +1,8 @@
-name: A workflow for my Hello World App
+name: A workflow for my cwWorld App
 on:
   push:
     branches:
       - master
-      - develop
 jobs:
   UnitTests:
     name: Unit Tests
@@ -34,7 +33,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - name: Integration Tests
+      - name: Integration Tests and CodeCov
         run: |
           docker build -t database ./db 
           docker run --name worlddb -dp 33060:3306 database
@@ -68,4 +67,11 @@ jobs:
         run: |
           mvn package -DskipTests
           docker-compose up --abort-on-container-exit
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: "latest"
+          files: |
+            ./target/cwWorld.jar
 
