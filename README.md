@@ -5,7 +5,7 @@
 * Release [![Releases](https://img.shields.io/github/release/nutellayan/cwWorld/all.svg?style=flat-square)](https://github.com/nutellayan/cwWorld/releases)
 * Develop Coverage [![codecov](https://codecov.io/gh/nutellayan/cwWorld/graph/badge.svg?token=1XZ9TNYZBU)](https://codecov.io/gh/nutellayan/cwWorld)
 
-
+* 
 * ## Queries for Code Review 2
 | **ID** | **Name**                                                                                                                                   | **Met** | **Screenshot**                                                                                             |
 |--------|--------------------------------------------------------------------------------------------------------------------------------------------|---------|------------------------------------------------------------------------------------------------------------|
@@ -42,4 +42,5 @@
 | 31     | The population of a city                                                                                                                   | Yes     | ![This is the alt-attribute for my image](https://github.com/nutellayan/cwWorld/blob/master/Usecase31.PNG) |
 | 32     | The population of speakers for Chinese, English, Hindi, Spanish, and Arabic languages with percentages, ordered from greatest to smallest  | Yes     | ![This is the alt-attribute for my image](https://github.com/nutellayan/cwWorld/blob/master/Usecase32.PNG) |
 ---------------------------------------------------------------------------------------------------------------
+
 
