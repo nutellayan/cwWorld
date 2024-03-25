@@ -38,7 +38,7 @@ Regardless of whether it is within public or project spaces our Code of Conduct 
 
 **Enforcement:**
 
-Any instances of this code of conduct being broken should be reported to the project team (40338719@live.napier.ac.uk) where all complaints will be investigated and assessed. We will respond as soon as possible, and this will result in a punishment which is felt necessary depending on the specific circumstances. The reporter will remain anonymous and the incident will be confidential. These rules also apply to project maintainers who do not follow the code of conduct as well, any breech of conduct may result in repercussion that are determined by other members of the projects leadership.
+Any instances of this code of conduct being broken should be reported to the project team (40766197@live.napier.ac.uk) where all complaints will be investigated and assessed. We will respond as soon as possible, and this will result in a punishment which is felt necessary depending on the specific circumstances. The reporter will remain anonymous and the incident will be confidential. These rules also apply to project maintainers who do not follow the code of conduct as well, any breech of conduct may result in repercussion that are determined by other members of the projects leadership.
 
 This Code of Conduct is adapted from the Contributor Covenant, version 1.4, available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
 ``````
