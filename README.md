@@ -24,6 +24,7 @@
   |     13      | Sprint Boards being used.                                                                                                                                                                                            |      Done       |
   |     14      | Full use cases defined.                                                                                                                                                                                              |      Done       |
   |     15      | Use case diagram created.                                                                                                                                                                                            |      Done       |
+--------------------------------------------------------
 
 -The Kanban/Project Board can be accessed from [this link.](https://zube.io/napier-331/cwworld/w/workspace-1/kanban)
 -The CodeCov can be accessed from [this link.](https://app.codecov.io/gh/nutellayan/cwWorld)
